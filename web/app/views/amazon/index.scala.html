@@ -1,0 +1,12 @@
+
+
+@main("Welcome to Amazon digger") {
+
+    @helper.form(action = routes.AmazonDigger.search()) {
+		<input type="text" name="expression" class="" placeholder="Search" autofocus>
+		<span class="">
+			<button class="" type="submit">Go!</button>
+		</span> 
+	}
+
+}
