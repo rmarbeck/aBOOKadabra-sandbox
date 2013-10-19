@@ -1,6 +1,6 @@
 package com.abookadabra.utils.amazon.api.models.answerelements;
 
-public class SimilarityLookupRequest extends Request {
+public class SimilarityLookupRequest extends RequestInAnswer {
 	private String itemId;
 	private String responseGroup;
 

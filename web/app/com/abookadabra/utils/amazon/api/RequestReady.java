@@ -1,18 +1,24 @@
 package com.abookadabra.utils.amazon.api;
 
-import com.abookadabra.utils.amazon.api.models.Request;
+import static com.abookadabra.utils.amazon.api.RequestBuilderConstants.*;
 
-public class RequestReady implements RequestBuilder {
-	private Request builtRequest;
+public class RequestReady {
+	private Request readyToBeExecutedRequest;
 	
-	protected RequestReady(Request request) {
-		builtRequest = request;
+	protected RequestReady(Request allreadyInitialisedRequest) {
+		readyToBeExecutedRequest = allreadyInitialisedRequest;
+	}
+	
+	protected void initialise() {
 	}
 	
 	public Request getRequest() {
-		return builtRequest;
+		return readyToBeExecutedRequest;
 	}
 	
+	/********************************************
+	 * Response Group
+	 ********************************************/
 	public RequestReady largeResponse() {
 		return setResponseGroup(AMAZON_RESPONSE_GROUP_PARAM_LARGE_VALUE);
 	}
@@ -30,10 +36,12 @@ public class RequestReady implements RequestBuilder {
 	}
 	
 	private RequestReady setResponseGroup(String responseGroupValue) {
-		builtRequest.addParam(AMAZON_RESPONSE_GROUP_PARAM, responseGroupValue);
-		return this;
+		return addParam(AMAZON_RESPONSE_GROUP_PARAM, responseGroupValue);
 	}
 	
+	/********************************************
+	 * Search Index
+	 ********************************************/
 	public RequestReady inBooksIndex() {
 		return setSearchIndex(AMAZON_SEARCH_INDEX_FOR_BOOKS_PARAM_VALUE);
 	}
@@ -43,10 +51,12 @@ public class RequestReady implements RequestBuilder {
 	}
 	
 	private RequestReady setSearchIndex(String searchIndexValue) {
-		builtRequest.addParam(AMAZON_SEARCH_INDEX_PARAM, searchIndexValue);
-		return this;
+		return addParam(AMAZON_SEARCH_INDEX_PARAM, searchIndexValue);
 	}
-	
+
+	/********************************************
+	 * Variation Page
+	 ********************************************/
 	public RequestReady page(int page) {
 		if (isItAValidPage(page))
 			return setVariationPage(Integer.toString(page));
@@ -54,10 +64,15 @@ public class RequestReady implements RequestBuilder {
 	}
 	
 	private RequestReady setVariationPage(String page) {
-		builtRequest.addParam(AMAZON_VARIATION_PAGE_PARAM, page);
-		return this;
+		return addParam(AMAZON_VARIATION_PAGE_PARAM, page);
 	}
+	
 	private boolean isItAValidPage(int page) {
 		return (page >= VARIATION_PAGE_MIN && page <= VARIATION_PAGE_MAX);
+	}
+	
+	protected RequestReady addParam(String key, String value) {
+		readyToBeExecutedRequest.addParam(key, value);
+		return this;
 	}
 }

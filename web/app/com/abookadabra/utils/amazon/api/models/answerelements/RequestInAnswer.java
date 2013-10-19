@@ -1,18 +1,18 @@
 package com.abookadabra.utils.amazon.api.models.answerelements;
 
-public class Request {
+public class RequestInAnswer {
 	private boolean isValid;
 
-	public Request() {
+	public RequestInAnswer() {
 		this.isValid = false;;
 	}
 	
-	public Request(boolean isValid) {
+	public RequestInAnswer(boolean isValid) {
 		this.isValid = isValid;
 	}
 
-	public static Request createInvalidRequest() {
-		return new Request(false);
+	public static RequestInAnswer createInvalidRequest() {
+		return new RequestInAnswer(false);
 	}
 	
 	public boolean isItValid() {

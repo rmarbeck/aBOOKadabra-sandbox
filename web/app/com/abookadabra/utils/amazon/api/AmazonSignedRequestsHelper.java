@@ -1,4 +1,4 @@
-package com.abookadabra.utils.amazon.api.helpers;
+package com.abookadabra.utils.amazon.api;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -51,23 +51,23 @@ public class AmazonSignedRequestsHelper {
 		  sortedFullListOfParams = new TreeMap<String, String>(fullListOfParams);
 	  }
 	  
-	  public String getCanonicalQS() {
+	  protected String getCanonicalQS() {
 		  return canonicalize(sortedFullListOfParams);
 	  }
 
-	  public String getSignature() {
+	  protected String getSignature() {
 		  return hmac(getToSign());
 	  }
 	  
-	  public String getEncodedSignature() {
+	  protected String getEncodedSignature() {
 		  return percentEncodeRfc3986(hmac(getToSign()));
 	  }
 	  
-	  public SortedMap<String, String> getSortedFullListOfParamsExceptSignature() {
+	  protected SortedMap<String, String> getSortedFullListOfParamsExceptSignature() {
 		  return sortedFullListOfParams;
 	  }
 	  
-	  public String getStartingURI() {
+	  protected String getStartingURI() {
 		  return "http://" + endpoint + REQUEST_URI;
 	  }
 
@@ -100,7 +100,7 @@ public class AmazonSignedRequestsHelper {
   }
 
 
-  public AmazonSignedRequestsHelper() throws Throwable {
+  protected AmazonSignedRequestsHelper() throws Throwable {
     byte[] secretyKeyBytes = awsSecretKey.getBytes(UTF8_CHARSET);
     secretKeySpec =
       new SecretKeySpec(secretyKeyBytes, HMAC_SHA256_ALGORITHM);
@@ -109,7 +109,7 @@ public class AmazonSignedRequestsHelper {
   }
 
   
-  public WSRequestHolder getUrl(Map<String, String> params) {
+  protected WSRequestHolder getUrl(Map<String, String> params) {
 	  AmazonSignedRequest toSignRequest = new AmazonSignedRequest(params);
 
 	  WSRequestHolder ws = WS.url(toSignRequest.getStartingURI());
@@ -131,7 +131,7 @@ public class AmazonSignedRequestsHelper {
 	  ws.setQueryParameter(SIGNATURE_PARAM, signature);
   }
   
-  public String getFullUrlAsString(final Map<String, String> params) {
+  protected String getFullUrlAsString(final Map<String, String> params) {
 	  AmazonSignedRequest toSignRequest = new AmazonSignedRequest(params);
 
 	  String canonicalQS = toSignRequest.getCanonicalQS();

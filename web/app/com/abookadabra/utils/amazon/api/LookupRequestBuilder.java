@@ -1,68 +1,59 @@
 package com.abookadabra.utils.amazon.api;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.abookadabra.utils.amazon.api.models.Request;
+import static com.abookadabra.utils.amazon.api.RequestBuilderConstants.*;
 
-public class LookupRequestBuilder implements RequestBuilder {
-	private Request builtRequest;
+public class LookupRequestBuilder extends RequestBuilder {
 	
-	public class AmazonApiLookupRequestReady extends RequestReady {
-		protected AmazonApiLookupRequestReady() {
+	public class LookupRequestReady extends RequestReady {
+		protected LookupRequestReady() {
 			super(builtRequest);
 		}
 	}
 	
-	public LookupRequestBuilder() {
-		builtRequest = new Request();
-		initialise();
-		RequestBuilderHelper.addCommonParams(builtRequest);
-	}
-	
-	public static LookupRequestBuilder lookup() {
+	public static LookupRequestBuilder build() {
 		return new LookupRequestBuilder();
 	}
 	
-	private void initialise() {
+	protected void initialise() {
 		builtRequest.addParam(AMAZON_OPERATION_PARAM, AMAZON_OPERATION_PARAM_ITEM_LOOKUP);
 	}
 	
-
-	public AmazonApiLookupRequestReady forASIN(String asin) {
+	public LookupRequestReady forASIN(String asin) {
 		return forListOfASINs(RequestBuilderHelper.putStringInNewList(asin));
 	}
 	
-	public AmazonApiLookupRequestReady forIsbn(String isbn) {
+	public LookupRequestReady forIsbn(String isbn) {
 		return forListOfIsbns(RequestBuilderHelper.putStringInNewList(isbn));
 	}
 	
-	public AmazonApiLookupRequestReady forEAN(String ean) {
+	public LookupRequestReady forEAN(String ean) {
 		return forListOfEANs(RequestBuilderHelper.putStringInNewList(ean));
 	}
 	
-	public AmazonApiLookupRequestReady forEANorIsbn(String eanOrIsbn) {
+	public LookupRequestReady forEANorIsbn(String eanOrIsbn) {
 		if (guessIfItIsAnIsbn(eanOrIsbn))
 			return forIsbn(eanOrIsbn);
 		return forEAN(eanOrIsbn);
 	}
 
-	public AmazonApiLookupRequestReady forListOfASINs(List<String> asins) {
+	public LookupRequestReady forListOfASINs(List<String> asins) {
 		return setItems(AMAZON_ID_TYPE_PARAM_ASIN_VALUE, asins);
 	}
 	
-	public AmazonApiLookupRequestReady forListOfIsbns(List<String> isbns) {
+	public LookupRequestReady forListOfIsbns(List<String> isbns) {
 		return setItems(AMAZON_ID_TYPE_PARAM_ISBN_VALUE, isbns);
 	}
 	
-	public AmazonApiLookupRequestReady forListOfEANs(List<String> eans) {
+	public LookupRequestReady forListOfEANs(List<String> eans) {
 		return setItems(AMAZON_ID_TYPE_PARAM_EAN_VALUE, eans);
 	}
 	
-	private AmazonApiLookupRequestReady setItems(String key, List<String> values) {
+	private LookupRequestReady setItems(String key, List<String> values) {
 		builtRequest.addParam(AMAZON_ID_TYPE_PARAM, key);
 		builtRequest.addParam(AMAZON_ITEM_ID_PARAM, RequestBuilderHelper.formatListOfItemsParam(values));
-		return new AmazonApiLookupRequestReady();
+		return new LookupRequestReady();
 	}
 	
 	private boolean guessIfItIsAnIsbn(String eanOrIsbn) {

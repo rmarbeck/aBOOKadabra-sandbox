@@ -1,15 +1,12 @@
 package com.abookadabra.utils.amazon.api.models;
 
-import java.util.ArrayList;
-
-import com.abookadabra.utils.amazon.api.models.answerelements.Item;
 import com.abookadabra.utils.amazon.api.models.answerelements.SimilarityLookupRequest;
 
 public class SimilarityLookupAnswer extends Answer {
 
 	private SimilarityLookupAnswer() {
 		super();
-		items = new ArrayList<Item>();
+		initialise();
 	}
 	
 	public static SimilarityLookupAnswer createInstanceFrom(Object answerFromAmazonToParse) {
@@ -19,8 +16,6 @@ public class SimilarityLookupAnswer extends Answer {
 	}
 
 	public SimilarityLookupRequest getRequest() throws AnswerIsNotValidException {
-		if (isItAValidAnswer())
-			return (SimilarityLookupRequest) request;
-		throw new AnswerIsNotValidException("Request is not a valid SimilarityLookup Request.");
+		return (SimilarityLookupRequest) super.getRequest();
 	}
 }

@@ -1,4 +1,4 @@
-package com.abookadabra.utils.amazon;
+package com.abookadabra.utils.amazon.api;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.File;

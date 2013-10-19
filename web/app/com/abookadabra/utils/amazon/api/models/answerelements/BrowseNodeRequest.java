@@ -1,6 +1,6 @@
 package com.abookadabra.utils.amazon.api.models.answerelements;
 
-public class BrowseNodeRequest extends Request {
+public class BrowseNodeRequest extends RequestInAnswer {
 	private String browseNodeId;
 
 	public BrowseNodeRequest(boolean isValid) {

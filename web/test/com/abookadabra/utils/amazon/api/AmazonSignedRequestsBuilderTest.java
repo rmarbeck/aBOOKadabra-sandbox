@@ -1,4 +1,4 @@
-package com.abookadabra.utils.amazon.helpers;
+package com.abookadabra.utils.amazon.api;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.abookadabra.utils.amazon.api.helpers.AmazonSignedRequestsHelper;
+import com.abookadabra.utils.amazon.api.AmazonSignedRequestsHelper;
 
 
 

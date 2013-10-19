@@ -2,14 +2,16 @@ package com.abookadabra.utils.amazon.api.models;
 
 import java.util.ArrayList;
 
+import com.abookadabra.utils.amazon.api.models.Answer.AnswerIsNotValidException;
 import com.abookadabra.utils.amazon.api.models.answerelements.BrowseNodeRequest;
 import com.abookadabra.utils.amazon.api.models.answerelements.Item;
+import com.abookadabra.utils.amazon.api.models.answerelements.RequestInAnswer;
 
 public class BrowseNodeAnswer extends Answer {
 
 	private BrowseNodeAnswer() {
 		super();
-		items = new ArrayList<Item>();
+		initialise();
 	}
 	
 	public static BrowseNodeAnswer createInstanceFrom(Object answerFromAmazonToParse) {
@@ -38,10 +40,8 @@ public class BrowseNodeAnswer extends Answer {
 	protected boolean isItAValidAnswer() {
 		return (request.isItValid());
 	}
-
+	
 	public BrowseNodeRequest getRequest() throws AnswerIsNotValidException {
-		if (isItAValidAnswer())
-			return (BrowseNodeRequest) request;
-		throw new AnswerIsNotValidException("Request is not a valid BrowseNode Request.");
+		return (BrowseNodeRequest) super.getRequest();
 	}
 }

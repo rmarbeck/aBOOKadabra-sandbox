@@ -1,57 +1,49 @@
 package com.abookadabra.utils.amazon.api;
 
-import com.abookadabra.utils.amazon.api.models.Request;
+import static com.abookadabra.utils.amazon.api.RequestBuilderConstants.*;
 
-public class BrowseNodeRequestBuilder implements RequestBuilder {
-	private Request builtRequest;
+public class BrowseNodeRequestBuilder extends RequestBuilder {
 	
-	public class AmazonApiBrowseNodeRequestReady extends RequestReady {
-		protected AmazonApiBrowseNodeRequestReady() {
+	public class BrowseNodeRequestReady extends RequestReady {
+		protected BrowseNodeRequestReady() {
 			super(builtRequest);
 		}
 		
-		public AmazonApiBrowseNodeRequestReady mostGifted() {
+		public BrowseNodeRequestReady mostGifted() {
 			return setResponseGroup(AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_MOST_GIFTED);
 		}
-		public AmazonApiBrowseNodeRequestReady wishedFor() {
+		public BrowseNodeRequestReady wishedFor() {
 			return setResponseGroup(AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_MOST_WISHED_FOR);
 		}
-		public AmazonApiBrowseNodeRequestReady newReleases() {
+		public BrowseNodeRequestReady newReleases() {
 			return setResponseGroup(AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_NEW_RELEASES);
 		}
-		public AmazonApiBrowseNodeRequestReady topSellers() {
+		public BrowseNodeRequestReady topSellers() {
 			return setResponseGroup(AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_TOP_SELLERS);
 		}
 		
-		private AmazonApiBrowseNodeRequestReady setResponseGroup(String responseGroupValue) {
-			builtRequest.addParam(AMAZON_RESPONSE_GROUP_PARAM, responseGroupValue);
-			return this;
+		private BrowseNodeRequestReady setResponseGroup(String responseGroupValue) {
+			return (BrowseNodeRequestReady) addParam(AMAZON_RESPONSE_GROUP_PARAM, responseGroupValue);
 		}
 	}
 	
-	public BrowseNodeRequestBuilder() {
-		builtRequest = new Request();
-		initialise();
-		RequestBuilderHelper.addCommonParams(builtRequest);
-	}
-	
-	public static BrowseNodeRequestBuilder lookup() {
+	public static BrowseNodeRequestBuilder build() {
 		return new BrowseNodeRequestBuilder();
 	}
 	
-	private void initialise() {
+	protected void initialise() {
 		builtRequest.addParam(AMAZON_OPERATION_PARAM, AMAZON_OPERATION_PARAM_BROWSE_NODE);
 	}
 
-	public AmazonApiBrowseNodeRequestReady forId(int browseNodeId) {
+	public BrowseNodeRequestReady forId(int browseNodeId) {
 		if (isItAValidNode(browseNodeId))
 			return setBrowseNode(Integer.toString(browseNodeId));
 		return setBrowseNode(Integer.toString(BROWSE_NODE_MIN));
 	}
 	
-	private AmazonApiBrowseNodeRequestReady setBrowseNode(String value) {
+	private BrowseNodeRequestReady setBrowseNode(String value) {
 		builtRequest.addParam(AMAZON_BROWSE_NODE_PARAM, value);
-		return new AmazonApiBrowseNodeRequestReady();
+		return new BrowseNodeRequestReady();
 	}
 	
 	private boolean isItAValidNode(int node) {

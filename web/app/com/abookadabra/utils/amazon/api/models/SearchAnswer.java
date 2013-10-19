@@ -1,8 +1,7 @@
 package com.abookadabra.utils.amazon.api.models;
 
-import java.util.ArrayList;
-
-import com.abookadabra.utils.amazon.api.models.answerelements.Item;
+import com.abookadabra.utils.amazon.api.models.Answer.AnswerIsNotValidException;
+import com.abookadabra.utils.amazon.api.models.answerelements.ItemLookupRequest;
 import com.abookadabra.utils.amazon.api.models.answerelements.ItemSearchRequest;
 
 public class SearchAnswer extends Answer {
@@ -11,7 +10,7 @@ public class SearchAnswer extends Answer {
 
 	public SearchAnswer() {
 		super();
-		items = new ArrayList<Item>();
+		initialise();
 	}
 	
 	protected void loadFrom(Object answerFromAmazonToParse) {
@@ -35,9 +34,7 @@ public class SearchAnswer extends Answer {
 	}
 
 	public ItemSearchRequest getRequest() throws AnswerIsNotValidException {
-		if (isItAValidAnswer())
-			return (ItemSearchRequest) request;
-		throw new AnswerIsNotValidException("Request is not a valid Search Request.");
+		return (ItemSearchRequest) super.getRequest();
 	}
 
 	public long getTotalResults() {

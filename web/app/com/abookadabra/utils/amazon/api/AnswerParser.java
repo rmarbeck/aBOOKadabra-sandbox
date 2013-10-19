@@ -5,9 +5,9 @@ import java.util.List;
 import com.abookadabra.utils.amazon.api.models.answerelements.Arguments;
 import com.abookadabra.utils.amazon.api.models.answerelements.BrowseNode;
 import com.abookadabra.utils.amazon.api.models.answerelements.Item;
-import com.abookadabra.utils.amazon.api.models.answerelements.Request;
+import com.abookadabra.utils.amazon.api.models.answerelements.RequestInAnswer;
 
-public interface Parser {
+public interface AnswerParser {
 	public void initialise(Object o) throws UnableToLoadThisKindOfObject;
 	
 	@SuppressWarnings("serial")
@@ -27,7 +27,7 @@ public interface Parser {
 	
 	public List<Item> loadItems() throws Exception;
 	
-	public Request loadRequest();
+	public RequestInAnswer loadRequest();
 	
 	public Arguments loadArguments();
 	

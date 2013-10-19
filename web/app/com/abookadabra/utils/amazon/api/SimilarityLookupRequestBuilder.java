@@ -2,55 +2,52 @@ package com.abookadabra.utils.amazon.api;
 
 import java.util.List;
 
-import com.abookadabra.utils.amazon.api.models.Request;
+import static com.abookadabra.utils.amazon.api.RequestBuilderConstants.*;
 
-public class SimilarityLookupRequestBuilder implements RequestBuilder {
+public class SimilarityLookupRequestBuilder extends RequestBuilder {
 	private Request builtRequest;
 	
-	public class AmazonApiSimilarityLookupRequestReady extends RequestReady {
-		protected AmazonApiSimilarityLookupRequestReady() {
+	public class SimilarityLookupRequestReady extends RequestReady {
+		protected SimilarityLookupRequestReady() {
 			super(builtRequest);
 		}
 		
-		public AmazonApiSimilarityLookupRequestReady random() {
+		public SimilarityLookupRequestReady random() {
 			return setSimilarityType(AMAZON_SIMILARY_TYPE_PARAM_RANDOM_VALUE);
 		}
-		public AmazonApiSimilarityLookupRequestReady intersection() {
+		public SimilarityLookupRequestReady intersection() {
 			return setSimilarityType(AMAZON_SIMILARY_TYPE_PARAM_INTERSECTION_VALUE);
 		}
 		
-		private AmazonApiSimilarityLookupRequestReady setSimilarityType(String value) {
-			builtRequest.addParam(AMAZON_SIMILARY_TYPE_PARAM, value);
-			return this;
+		private SimilarityLookupRequestReady setSimilarityType(String value) {
+			return addParam(AMAZON_SIMILARY_TYPE_PARAM, value);
+		}
+		
+		protected SimilarityLookupRequestReady addParam(String key, String value) {
+			return (SimilarityLookupRequestReady) super.addParam(key, value);
 		}
 		
 	}
 	
-	public SimilarityLookupRequestBuilder() {
-		builtRequest = new Request();
-		initialise();
-		RequestBuilderHelper.addCommonParams(builtRequest);
-	}
-	
-	public static SimilarityLookupRequestBuilder lookup() {
+	public static SimilarityLookupRequestBuilder build() {
 		return new SimilarityLookupRequestBuilder();
 	}
 	
-	private void initialise() {
+	protected void initialise() {
 		builtRequest.addParam(AMAZON_OPERATION_PARAM, AMAZON_OPERATION_PARAM_ITEM_SIMILARITY);
 	}
 	
 
-	public AmazonApiSimilarityLookupRequestReady forASIN(String asin) {
+	public SimilarityLookupRequestReady forASIN(String asin) {
 		return forListOfASINs(RequestBuilderHelper.putStringInNewList(asin));
 	}
 
-	public AmazonApiSimilarityLookupRequestReady forListOfASINs(List<String> asins) {
+	public SimilarityLookupRequestReady forListOfASINs(List<String> asins) {
 		return setItems(asins);
 	}
 	
-	private AmazonApiSimilarityLookupRequestReady setItems(List<String> values) {
+	private SimilarityLookupRequestReady setItems(List<String> values) {
 		builtRequest.addParam(AMAZON_ITEM_ID_PARAM, RequestBuilderHelper.formatListOfItemsParam(values));
-		return new AmazonApiSimilarityLookupRequestReady();
+		return new SimilarityLookupRequestReady();
 	}
 }

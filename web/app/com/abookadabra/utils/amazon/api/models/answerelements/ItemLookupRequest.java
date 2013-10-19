@@ -1,6 +1,6 @@
 package com.abookadabra.utils.amazon.api.models.answerelements;
 
-public class ItemLookupRequest extends Request {
+public class ItemLookupRequest extends RequestInAnswer {
 	private String idType;
 	private String itemId;
 	private String responseGroup;

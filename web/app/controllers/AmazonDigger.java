@@ -2,10 +2,11 @@ package controllers;
 
 import static play.data.Form.form;
 
+import com.abookadabra.utils.amazon.api.Request;
 import com.abookadabra.utils.amazon.api.RequestBuilder;
 import com.abookadabra.utils.amazon.api.RequestBuilderHelper;
+import com.abookadabra.utils.amazon.api.RequestHelper;
 import com.abookadabra.utils.amazon.api.SearchRequestBuilder;
-import com.abookadabra.utils.amazon.api.models.Request;
 import com.abookadabra.utils.amazon.api.models.SearchAnswer;
 
 import play.*;
@@ -54,9 +55,9 @@ public class AmazonDigger extends Controller {
     }
     
     private static Promise<SearchAnswer> getAmazonResultForGivenExpression(String expression) {
-    	Request request = SearchRequestBuilder.search().forLikeKeywords(expression).getRequest();
-    	Logger.info(RequestBuilderHelper.getFullUrl(request));
-    	return RequestBuilderHelper.getWSRequestHolder(request).get().map(
+    	Request request = SearchRequestBuilder.build().forLikeKeywords(expression).getRequest();
+    	Logger.info(request.getFullUrl());
+    	return RequestHelper.getWSRequestHolder(request).get().map(
 				new Function<WS.Response, SearchAnswer>() {
 					public SearchAnswer apply(WS.Response response) {
 						//Logger.info("Amazon result : "+ response.getBody());
