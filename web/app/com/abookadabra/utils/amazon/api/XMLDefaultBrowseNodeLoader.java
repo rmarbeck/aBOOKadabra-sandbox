@@ -35,26 +35,34 @@ public class XMLDefaultBrowseNodeLoader {
 	private List<BrowseNode> diveIntoBrowseNodeToLoadThem() {
 		List<BrowseNode> itemRootBrowseNodes = new ArrayList<BrowseNode>();
 		for (XMLAmazonNode currrentBrowseNodesXmlNode: rootBrowseNodesXmlNodes) {
-			BrowseNode newBrowseNode = new BrowseNode(
-					currrentBrowseNodesXmlNode.childOrEmpty(AMAZON_XML_FIELD_BROWSE_NODE_ID).retrieveLongValue(),
-					tryToGetTextValueForOptionnalField(currrentBrowseNodesXmlNode, AMAZON_XML_FIELD_BROWSE_NODE_NAME));
-			List<BrowseNode> children = tryToGetChildren(currrentBrowseNodesXmlNode);
-			newBrowseNode.setChildren(children);
-			if (hasAncestor(currrentBrowseNodesXmlNode))
-				newBrowseNode.setAncestors(load(currrentBrowseNodesXmlNode.childOrEmpty(AMAZON_XML_FIELD_BROWSE_NODE_ANCESTORS)));
-			itemRootBrowseNodes.add(newBrowseNode);
+			itemRootBrowseNodes.add(loadNode(currrentBrowseNodesXmlNode));
 		}
 		return itemRootBrowseNodes;
+	}
+	
+	private BrowseNode loadNode(XMLAmazonNode browseNode) {
+		BrowseNode newBrowseNode = createFirstLevelBrowseNode(browseNode);
+		newBrowseNode.setChildren(tryToGetChildren(browseNode));
+		if (hasAncestor(browseNode))
+			newBrowseNode.setAncestors(loadAncestors(browseNode));
+		return newBrowseNode;
+	}
+	
+	private BrowseNode createFirstLevelBrowseNode(XMLAmazonNode xmlBrowseNode) {
+		return new BrowseNode(
+				xmlBrowseNode.childOrEmpty(AMAZON_XML_FIELD_BROWSE_NODE_ID).retrieveLongValue(),
+				tryToGetTextValueForOptionnalField(xmlBrowseNode, AMAZON_XML_FIELD_BROWSE_NODE_NAME));
+	}
+	
+	private List<BrowseNode> loadAncestors(XMLAmazonNode xmlBrowseNode) {
+		return load(xmlBrowseNode.childOrEmpty(AMAZON_XML_FIELD_BROWSE_NODE_ANCESTORS));
 	}
 	
 	private List<BrowseNode> tryToGetChildren(XMLAmazonNode itemNode) {
 		List<BrowseNode> itemChildren = new ArrayList<BrowseNode>();
 		List<XMLAmazonNode> childrenXmlNodes = itemNode.childOrEmpty(AMAZON_XML_FIELD_BROWSE_NODE_CHILDREN).childrenOrEmpty(AMAZON_XML_FIELD_BROWSE_NODE);
 		for (XMLAmazonNode currrentChildNode: childrenXmlNodes) {
-			BrowseNode newBrowseNode = new BrowseNode(
-					currrentChildNode.childOrEmpty(AMAZON_XML_FIELD_BROWSE_NODE_ID).retrieveLongValue(),
-					tryToGetTextValueForOptionnalField(currrentChildNode, AMAZON_XML_FIELD_BROWSE_NODE_NAME));
-			itemChildren.add(newBrowseNode);
+			itemChildren.add(createFirstLevelBrowseNode(currrentChildNode));
 		}
 		return itemChildren;
 	}

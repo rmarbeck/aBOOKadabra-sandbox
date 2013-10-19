@@ -239,29 +239,8 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 	}
 	
 	private static void tryToLoadSimilarProducts(XMLAmazonNode itemNode, Item item) {
-		List<XMLAmazonNode> similarProductsNodes = itemNode.childrenOrEmpty(AMAZON_XML_FIELD_SIMILAR_PRODUCT);
-		if (hasAtLeastOneSimilarProduct(similarProductsNodes)) {
-			item.setSimilarProducts(loadSimilarProductsFound(similarProductsNodes));
-		} else {
-			item.setSimilarProducts(new ArrayList<SimilarProduct>());
-		}
+		item.setSimilarProducts(XMLDefaultSimilarProductsLoader.load(itemNode));
 	}
-	
-	private static boolean hasAtLeastOneSimilarProduct(List<XMLAmazonNode> similarProductsNodes) {
-		return (similarProductsNodes!= null && similarProductsNodes.size() != 0); 
-	}
-	
-	private static List<SimilarProduct> loadSimilarProductsFound(List<XMLAmazonNode> similarProductsNodes) {
-		List<SimilarProduct> similarProducts = new ArrayList<SimilarProduct>();
-		for (XMLAmazonNode currrentSimilarProductNode: similarProductsNodes) {
-			SimilarProduct newSimilarProduct = new SimilarProduct(
-					tryToGetTextValueForOptionnalField(currrentSimilarProductNode, AMAZON_XML_FIELD_SIMILAR_PRODUCT_ASIN),
-					tryToGetTextValueForOptionnalField(currrentSimilarProductNode, AMAZON_XML_FIELD_SIMILAR_PRODUCT_TITLE));
-			similarProducts.add(newSimilarProduct);
-		}
-		return similarProducts;
-	}
-
 	
 	private static void tryToLoadBrowseNodes(XMLAmazonNode itemNode, Item item) {
 		item.setBrowseNodes(XMLDefaultBrowseNodeLoader.load(itemNode));
