@@ -7,6 +7,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.abookadabra.utils.amazon.api.helpers.AmazonSignedRequestsHelper;
+
 
 
 /**

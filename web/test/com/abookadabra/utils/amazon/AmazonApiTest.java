@@ -11,9 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.abookadabra.utils.amazon.models.AmazonApiLookupAnswer;
-import com.abookadabra.utils.amazon.models.AmazonApiSearchAnswer;
-import com.abookadabra.utils.amazon.models.AmazonApiAnswer.AnswerIsNotValidException;
+import com.abookadabra.utils.amazon.api.models.LookupAnswer;
+import com.abookadabra.utils.amazon.api.models.SearchAnswer;
+import com.abookadabra.utils.amazon.api.models.Answer.AnswerIsNotValidException;
 
 
 /**
@@ -24,8 +24,8 @@ import com.abookadabra.utils.amazon.models.AmazonApiAnswer.AnswerIsNotValidExcep
 public class AmazonApiTest {
 	Document localLookupExampleDoc;
 	Document localSearchExampleDoc;
-	AmazonApiLookupAnswer lookupAnswer;
-	AmazonApiSearchAnswer lookupSearch;
+	LookupAnswer lookupAnswer;
+	SearchAnswer lookupSearch;
 	
 	@Before
     public void loadTestXml() {
@@ -37,9 +37,9 @@ public class AmazonApiTest {
 		try {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			localLookupExampleDoc = dBuilder.parse(lookupFile);
-			lookupAnswer = AmazonApiLookupAnswer.createInstanceFrom(localLookupExampleDoc);
+			lookupAnswer = LookupAnswer.createInstanceFrom(localLookupExampleDoc);
 			localSearchExampleDoc = dBuilder.parse(searchFile);
-			lookupSearch = AmazonApiSearchAnswer.createInstanceFrom(localSearchExampleDoc);
+			lookupSearch = SearchAnswer.createInstanceFrom(localSearchExampleDoc);
 		} catch (Exception e) {
 			assertThat(e).isNull();
 		}
