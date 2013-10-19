@@ -2,7 +2,7 @@ package com.abookadabra.utils.amazon;
 
 import com.abookadabra.utils.amazon.models.AmazonApiRequest;
 
-public class AmazonApiBrowseNodeRequestBuilder implements AmazonApiRequestBuilder {
+public class BrowseNodeRequestBuilder implements AmazonApiRequestBuilder {
 	private AmazonApiRequest builtRequest;
 	
 	public class AmazonApiBrowseNodeRequestReady extends AmazonApiRequestReady {
@@ -29,14 +29,14 @@ public class AmazonApiBrowseNodeRequestBuilder implements AmazonApiRequestBuilde
 		}
 	}
 	
-	public AmazonApiBrowseNodeRequestBuilder() {
+	public BrowseNodeRequestBuilder() {
 		builtRequest = new AmazonApiRequest();
 		initialise();
 		AmazonApiRequestBuilderHelper.addCommonParams(builtRequest);
 	}
 	
-	public static AmazonApiBrowseNodeRequestBuilder lookup() {
-		return new AmazonApiBrowseNodeRequestBuilder();
+	public static BrowseNodeRequestBuilder lookup() {
+		return new BrowseNodeRequestBuilder();
 	}
 	
 	private void initialise() {
