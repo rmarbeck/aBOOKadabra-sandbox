@@ -1,15 +1,12 @@
 package com.abookadabra.utils.amazon.api.models;
 
-import com.abookadabra.utils.amazon.api.models.Answer.AnswerIsNotValidException;
-import com.abookadabra.utils.amazon.api.models.answerelements.ItemLookupRequest;
 import com.abookadabra.utils.amazon.api.models.answerelements.ItemSearchRequest;
 
 public class SearchAnswer extends Answer {
 	private long totalResults;
 	private long totalPages;
 
-	public SearchAnswer() {
-		super();
+	private SearchAnswer() {
 		initialise();
 	}
 	

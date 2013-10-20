@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XMLAmazonNode {
-	private Node node;
+	private final Node node;
 	private boolean isAnEmptyNode;
 	
 	public XMLAmazonNode(Node node) {

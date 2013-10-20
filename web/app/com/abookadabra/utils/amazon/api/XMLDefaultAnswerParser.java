@@ -12,40 +12,65 @@ import com.abookadabra.utils.amazon.api.XMLAmazonNode.NodeNotFoundException;
 import com.abookadabra.utils.amazon.api.models.answerelements.*;
 import com.abookadabra.utils.amazon.api.models.answerelements.Attributes.ListPrice;
 
+import static com.abookadabra.utils.amazon.api.XMLDefaultParserAndLoaderHelper.tryToGetTextValueForOptionnalField;
+import static com.abookadabra.utils.amazon.api.XMLDefaultParserAndLoaderHelper.getTextValueForMandatoryField;
 import static com.abookadabra.utils.amazon.api.XMLDefaultAnswerConstants.*;
 
 public class XMLDefaultAnswerParser implements AnswerParser {
 	
-	private Document rootOfXmlToParse;	
+	private XMLAmazonNode rootNode;
 
 	@Override
 	public void initialise(Object o) throws UnableToLoadThisKindOfObject {
 		if (isNotaDocument(o))
 			throw new UnableToLoadThisKindOfObject(o.getClass().getName());
-		rootOfXmlToParse = (Document) o;
+		Document rootOfXmlToParse = (Document) o;
+		normalizeDocument(rootOfXmlToParse);
+		rootNode = XMLAmazonNode.wrap(rootOfXmlToParse);
 	}
 	
 	private boolean isNotaDocument(Object o) {
 		return !(o instanceof Document);
 	}
 	
-	public void load(Document xmlDocumentToParse) {
-		rootOfXmlToParse = xmlDocumentToParse;
-		normalizeDocument();
-	}
-	
-	private void normalizeDocument() {
+	private static void normalizeDocument(Document rootOfXmlToParse) {
 		rootOfXmlToParse.getDocumentElement().normalize();
 	}
 	
-	public void checkRequestSummaryForErrors() throws Exception {
-		if (hasErrors() || !isValid())
-			throw new Exception();
+	
+	public RequestInAnswer loadRequest() {
+		try {
+			XMLAmazonNode request = rootNode.child(AMAZON_XML_FIELD_REQUEST);
+			return loadRequestContent(request);
+		} catch (Exception e) {
+			return RequestInAnswer.createInvalidRequest();
+		}
+	}
+	
+	private RequestInAnswer loadRequestContent(XMLAmazonNode request) throws Exception {
+		return XMLDefaultRequestLoaderFactory.getLoaderFromRequestNode(request).load();
+	}
+	
+	public ErrorInAnswer loadError() {
+		try {
+			XMLAmazonNode error = rootNode.child(AMAZON_XML_FIELD_ERRORS);
+			return loadErrorContent(error);
+		} catch (Exception e) {
+			return ErrorInAnswer.createNoError();
+		}
+	}
+	
+	private ErrorInAnswer loadErrorContent(XMLAmazonNode error) throws Exception {
+		XMLAmazonNode errorNode = error.childOrEmpty(AMAZON_XML_FIELD_ERROR);
+		ErrorInAnswer newError = new ErrorInAnswer(
+				getTextValueForMandatoryField(errorNode, AMAZON_XML_FIELD_ERROR_CODE),
+				getTextValueForMandatoryField(errorNode, AMAZON_XML_FIELD_ERROR_MESSAGE));
+		return newError;
 	}
 	
 	public boolean hasErrors() {
 		try {
-			List<XMLAmazonNode> containsErrors = XMLAmazonNode.wrap(rootOfXmlToParse).children(AMAZON_XML_FIELD_ERROR);
+			List<XMLAmazonNode> containsErrors = rootNode.children(AMAZON_XML_FIELD_ERRORS);
 			if (containsErrors.size() > 0)
 				return true;
 			return false;
@@ -56,7 +81,7 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 	
 	public boolean isValid() {
 		try {
-			XMLAmazonNode isValid = XMLAmazonNode.wrap(rootOfXmlToParse).child(AMAZON_XML_FIELD_IS_VALID);
+			XMLAmazonNode isValid = rootNode.child(AMAZON_XML_FIELD_IS_VALID);
 			if (isValid.retrieveTextValue().equalsIgnoreCase("true"))
 				return true;
 			return false;
@@ -66,13 +91,13 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 	}
 	
 	public Item loadItem() throws Exception {
-		return loadItem(XMLAmazonNode.wrap(rootOfXmlToParse).child(AMAZON_XML_FIELD_ITEM));
+		return loadItem(rootNode.child(AMAZON_XML_FIELD_ITEM));
 	}
 	
 	public List<Item> loadItems() throws Exception  {
 		List<Item> items = new ArrayList<Item>();
 		try {
-			List<XMLAmazonNode> itemNodes = XMLAmazonNode.wrap(rootOfXmlToParse).children(AMAZON_XML_FIELD_ITEM);
+			List<XMLAmazonNode> itemNodes = rootNode.children(AMAZON_XML_FIELD_ITEM);
 			for (XMLAmazonNode itemNode: itemNodes) {
 				items.add(loadItem(itemNode));
 			}
@@ -86,33 +111,41 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 		try {
 			Item item = new Item();
 			loadAsinOrRaiseException(rootNodeWhereIsItem, item);
-			loadFirstLevelFields(rootNodeWhereIsItem, item);
-			loadAttributes(rootNodeWhereIsItem, item);
+			loadFirstLevelFieldsOrRaiseException(rootNodeWhereIsItem, item);
+			loadAttributesOrRaiseException(rootNodeWhereIsItem, item);
 			tryToLoadEditorialReview(rootNodeWhereIsItem, item);
 			//loadImages(node, item);
 			tryToLoadSimilarProducts(rootNodeWhereIsItem, item);
 			tryToLoadBrowseNodes(rootNodeWhereIsItem, item);
 			return item;	
 		} catch (Exception e) {
-			throw new Exception("Unable to load an item, root cause is :"+e.getMessage());
+			throw new Exception("Unable to load an item, root cause is <- "+e.getMessage());
 		}
 		
 	}
 	
 	public List<BrowseNode> loadBrowseNodes() {
-		return XMLDefaultBrowseNodeLoader.load(XMLAmazonNode.wrap(rootOfXmlToParse));
+		return XMLDefaultBrowseNodeLoader.load(rootNode);
 	}
 	
-	private static void loadAsinOrRaiseException(XMLAmazonNode node, Item item) throws NodeNotFoundException {
-		item.setAsin(node.child(AMAZON_XML_FIELD_ASIN).firstChild().retrieveTextValue());
+	private static void loadAsinOrRaiseException(XMLAmazonNode node, Item item) throws Exception {
+		try {
+			item.setAsin(node.child(AMAZON_XML_FIELD_ASIN).firstChild().retrieveTextValue());
+		} catch (NodeNotFoundException e) {
+			throw new Exception("No ASIN for this item <- "+e.getMessage());
+		}
 	}
 	
-	private static void loadFirstLevelFields(XMLAmazonNode node, Item item) throws Exception {
+	private static void loadFirstLevelFieldsOrRaiseException(XMLAmazonNode node, Item item)  throws Exception {
 		item.setSalesRank(node.childOrEmpty(AMAZON_XML_FIELD_SALES_RANK).retrieveIntValue());
-		item.setDetailPageUrl(node.child(AMAZON_XML_FIELD_GOTO_URL).retrieveTextValue());
+		try {
+			item.setDetailPageUrl(node.child(AMAZON_XML_FIELD_GOTO_URL).retrieveTextValue());
+		} catch (NodeNotFoundException e) {
+			throw new Exception("No Detail URL for this item <- "+e.getMessage());
+		}
 	}
 	
-	private static void loadAttributes(XMLAmazonNode itemNode, Item item) throws Exception {
+	private static void loadAttributesOrRaiseException(XMLAmazonNode itemNode, Item item) throws Exception {
 		try {
 			XMLAmazonNode aNode = itemNode.child(AMAZON_XML_FIELD_ATTRIBUTES);
 			Attributes attributes = new Attributes();
@@ -120,22 +153,9 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 			tryToLoadComplexAttributes(aNode, attributes);
 			item.setAttributes(attributes);
 		} catch (NodeNotFoundException e) {
-			throw new Exception("No attributes fields :"+e.getMessage());
+			throw new Exception("No attributes fields <- "+e.getMessage());
 		}
 		
-	}
-	
-	public RequestInAnswer loadRequest() {
-		try {
-			XMLAmazonNode request = XMLAmazonNode.wrap(rootOfXmlToParse).child(AMAZON_XML_FIELD_REQUEST);
-			return loadRequestContent(request);
-		} catch (Exception e) {
-			return RequestInAnswer.createInvalidRequest();
-		}
-	}
-	
-	private RequestInAnswer loadRequestContent(XMLAmazonNode request) throws Exception {
-		return XMLDefaultRequestLoaderFactory.getLoaderFromRequestNode(request).load();
 	}
 
 	public Arguments loadArguments() {
@@ -144,11 +164,11 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 	}
 
 	public long loadTotalResults() {
-		return XMLAmazonNode.wrap(rootOfXmlToParse).childOrEmpty(AMAZON_XML_FIELD_TOTAL_RESULTS).retrieveLongValue(); 
+		return rootNode.childOrEmpty(AMAZON_XML_FIELD_TOTAL_RESULTS).retrieveLongValue(); 
 	}
 
 	public long loadTotalPages() {
-		return XMLAmazonNode.wrap(rootOfXmlToParse).childOrEmpty(AMAZON_XML_FIELD_TOTAL_PAGES).retrieveLongValue(); 
+		return rootNode.childOrEmpty(AMAZON_XML_FIELD_TOTAL_PAGES).retrieveLongValue(); 
 	}
 	
 	private static void tryToLoadEditorialReview(XMLAmazonNode node, Item item) {
@@ -192,7 +212,8 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 	}
 	
 	private static void tryToLoadComplexAttributes(XMLAmazonNode node, Attributes attributes) {
-		attributes.setPublicationDate(tryToRetrieveDate(node));
+		attributes.setPublicationDate(tryToRetrievePublicationDate(node));
+		attributes.setReleaseDate(tryToRetrieveReleaseDate(node));
 		attributes.setLanguages(tryToRetrieveLanguages(node));
 		attributes.setListPrice(tryToRetrieveListPrice(node));
 		attributes.setAuthors(tryToRetrieveAuthors(node));
@@ -229,13 +250,17 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 		return newPrice;
 	}
 	
-	private static Date tryToRetrieveDate(XMLAmazonNode node) {
-		SimpleDateFormat sdf = new SimpleDateFormat(AMAZON_DATE_FORMAT);
-		return sdf.parse(tryToGetTextValueForOptionnalField(node, AMAZON_XML_FIELD_PUBLICATION_DATE), new ParsePosition(0));
+	private static Date tryToRetrievePublicationDate(XMLAmazonNode node) {
+		return tryToRetrieveDate(node, AMAZON_XML_FIELD_PUBLICATION_DATE);
 	}
-
-	private static String tryToGetTextValueForOptionnalField(XMLAmazonNode node, String key) {
-		return node.childOrEmpty(key).retrieveTextValue();
+	
+	private static Date tryToRetrieveReleaseDate(XMLAmazonNode node) {
+		return tryToRetrieveDate(node, AMAZON_XML_FIELD_RELEASE_DATE);
+	}
+	
+	private static Date tryToRetrieveDate(XMLAmazonNode node, String key) {
+		SimpleDateFormat sdf = new SimpleDateFormat(AMAZON_DATE_FORMAT);
+		return sdf.parse(tryToGetTextValueForOptionnalField(node, key), new ParsePosition(0));
 	}
 	
 	private static void tryToLoadSimilarProducts(XMLAmazonNode itemNode, Item item) {
@@ -244,5 +269,6 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 	
 	private static void tryToLoadBrowseNodes(XMLAmazonNode itemNode, Item item) {
 		item.setBrowseNodes(XMLDefaultBrowseNodeLoader.load(itemNode));
-	}	
+	}
+	
 }

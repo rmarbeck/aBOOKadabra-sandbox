@@ -3,6 +3,8 @@ package com.abookadabra.utils.amazon.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.abookadabra.utils.amazon.api.XMLDefaultParserAndLoaderHelper.tryToGetTextValueForOptionnalField;
+
 import com.abookadabra.utils.amazon.api.models.answerelements.SimilarProduct;
 
 import static com.abookadabra.utils.amazon.api.XMLDefaultAnswerConstants.*;
@@ -24,12 +26,8 @@ public class XMLDefaultSimilarProductsLoader {
 		return  new ArrayList<SimilarProduct>();
 	}
 	
-	protected String tryToGetTextValueForOptionnalField(XMLAmazonNode node, String key) {
-		return node.childOrEmpty(key).retrieveTextValue();
-	}
-	
 	private boolean hasAtLeastOneSimilarProduct() {
-		return (similarProductsNodes!= null && similarProductsNodes.size() != 0); 
+		return (similarProductsNodes != null && similarProductsNodes.size() != 0); 
 	}
 	
 	private List<SimilarProduct> loadSimilarProductsFound() {

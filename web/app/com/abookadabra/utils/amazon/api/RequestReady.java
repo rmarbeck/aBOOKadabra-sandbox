@@ -57,7 +57,7 @@ public class RequestReady {
 	/********************************************
 	 * Variation Page
 	 ********************************************/
-	public RequestReady page(int page) {
+	public RequestReady variationPage(int page) {
 		if (isItAValidPage(page))
 			return setVariationPage(Integer.toString(page));
 		return setVariationPage(Integer.toString(VARIATION_PAGE_MIN));

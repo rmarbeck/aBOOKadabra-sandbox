@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -21,25 +22,31 @@ import com.abookadabra.utils.amazon.api.models.Answer.AnswerIsNotValidException;
 * Simple (JUnit) tests for testing AmazonApi.
 *
 */
-public class AmazonApiTest {
-	Document localLookupExampleDoc;
-	Document localSearchExampleDoc;
-	LookupAnswer lookupAnswer;
-	SearchAnswer lookupSearch;
+public class AmazonApiFromLocalTest {
+	static Document localLookupExampleDoc;
+	static Document localSearchExampleDoc;
+	static Document localEmptySearchExampleDoc;
+	static LookupAnswer lookupAnswer;
+	static SearchAnswer searchAnswer;
+	static SearchAnswer emptySearchAnswer;
 	
-	@Before
-    public void loadTestXml() {
-		URL urlLookup = this.getClass().getResource("/lookup-amazon-example.xml");
-		URL urlSearch = this.getClass().getResource("/search-amazon-example.xml");
+	@BeforeClass
+    public static void loadTestXml() {
+		URL urlLookup = AmazonApiFromLocalTest.class.getResource("/lookup-amazon-example.xml");
+		URL urlSearch = AmazonApiFromLocalTest.class.getResource("/search-amazon-example.xml");
+		URL urlEmptySearch = AmazonApiFromLocalTest.class.getResource("/empty-search-amazon-example.xml");
 		File lookupFile = new File(urlLookup.getFile());
 		File searchFile = new File(urlSearch.getFile());
+		File emptySearchFile = new File(urlEmptySearch.getFile());
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			localLookupExampleDoc = dBuilder.parse(lookupFile);
 			lookupAnswer = LookupAnswer.createInstanceFrom(localLookupExampleDoc);
 			localSearchExampleDoc = dBuilder.parse(searchFile);
-			lookupSearch = SearchAnswer.createInstanceFrom(localSearchExampleDoc);
+			searchAnswer = SearchAnswer.createInstanceFrom(localSearchExampleDoc);
+			localEmptySearchExampleDoc = dBuilder.parse(emptySearchFile);
+			emptySearchAnswer = SearchAnswer.createInstanceFrom(localEmptySearchExampleDoc);
 		} catch (Exception e) {
 			assertThat(e).isNull();
 		}
@@ -211,79 +218,112 @@ public class AmazonApiTest {
     /****************************************************************************/
     @Test
     public void parsingLocalSearchFileWithoutErrors() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.hasResults()).isEqualTo(true);
+        assertThat(searchAnswer.hasResults()).isEqualTo(true);
     }
     
     @Test
     public void parsingLocalSearchCheckNumberOfItems() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.getItems().size()).isEqualTo(10);
+        assertThat(searchAnswer.getItems().size()).isEqualTo(10);
     }
     
     @Test
     public void parsingLocalSearchCheckNumberOfPages() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.getTotalPages()).isEqualTo(22794);
+        assertThat(searchAnswer.getTotalPages()).isEqualTo(22794);
     }
     
     @Test
     public void parsingLocalSearchCheckNumberOfResults() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.getTotalResults()).isEqualTo(227935);
+        assertThat(searchAnswer.getTotalResults()).isEqualTo(227935);
     }
 
     @Test
     public void parsingLocalSearchToGetASINs() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.getItems().get(0).getAsin()).isEqualTo("2278062921");
-        assertThat(lookupSearch.getItems().get(1).getAsin()).isEqualTo("2278063642");
-        assertThat(lookupSearch.getItems().get(2).getAsin()).isEqualTo("2278058533");
-        assertThat(lookupSearch.getItems().get(3).getAsin()).isEqualTo("2278069136");
-        assertThat(lookupSearch.getItems().get(4).getAsin()).isEqualTo("2226238549");
-        assertThat(lookupSearch.getItems().get(5).getAsin()).isEqualTo("2091614793");
-        assertThat(lookupSearch.getItems().get(6).getAsin()).isEqualTo("2848901748");
-        assertThat(lookupSearch.getItems().get(7).getAsin()).isEqualTo("2253147648");
-        assertThat(lookupSearch.getItems().get(8).getAsin()).isEqualTo("2035865980");
-        assertThat(lookupSearch.getItems().get(9).getAsin()).isEqualTo("B00006RJNS");
+        assertThat(searchAnswer.getItems().get(0).getAsin()).isEqualTo("2278062921");
+        assertThat(searchAnswer.getItems().get(1).getAsin()).isEqualTo("2278063642");
+        assertThat(searchAnswer.getItems().get(2).getAsin()).isEqualTo("2278058533");
+        assertThat(searchAnswer.getItems().get(3).getAsin()).isEqualTo("2278069136");
+        assertThat(searchAnswer.getItems().get(4).getAsin()).isEqualTo("2226238549");
+        assertThat(searchAnswer.getItems().get(5).getAsin()).isEqualTo("2091614793");
+        assertThat(searchAnswer.getItems().get(6).getAsin()).isEqualTo("2848901748");
+        assertThat(searchAnswer.getItems().get(7).getAsin()).isEqualTo("2253147648");
+        assertThat(searchAnswer.getItems().get(8).getAsin()).isEqualTo("2035865980");
+        assertThat(searchAnswer.getItems().get(9).getAsin()).isEqualTo("B00006RJNS");
     }
     
     @Test
     public void parsingLocalSearchToGetAuthors() throws AnswerIsNotValidException {
-		assertThat(lookupSearch.getItems().get(0).getAttributes().getAuthors().size()).isEqualTo(2);
-		assertThat(lookupSearch.getItems().get(0).getAttributes().getAuthors().get(0)).isEqualTo("Odile Martin-Cocher");
-		assertThat(lookupSearch.getItems().get(0).getAttributes().getAuthors().get(1)).isEqualTo("Collectif");
+		assertThat(searchAnswer.getItems().get(0).getAttributes().getAuthors().size()).isEqualTo(2);
+		assertThat(searchAnswer.getItems().get(0).getAttributes().getAuthors().get(0)).isEqualTo("Odile Martin-Cocher");
+		assertThat(searchAnswer.getItems().get(0).getAttributes().getAuthors().get(1)).isEqualTo("Collectif");
     }
     
     @Test
     public void parsingLocalSearchToGetEdition() throws AnswerIsNotValidException {
-		assertThat(lookupSearch.getItems().get(0).getAttributes().getEdition()).isEqualTo("édition 2008");
+		assertThat(searchAnswer.getItems().get(0).getAttributes().getEdition()).isEqualTo("édition 2008");
     }
     
     @Test
     public void parsingLocalSearchCheckSimilarProducts() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.getItems().get(0).getSimilarProducts().size()).isEqualTo(5);
-        assertThat(lookupSearch.getItems().get(1).getSimilarProducts().size()).isEqualTo(5);
-        assertThat(lookupSearch.getItems().get(2).getSimilarProducts().size()).isEqualTo(5);
-        assertThat(lookupSearch.getItems().get(3).getSimilarProducts().size()).isEqualTo(5);
-        assertThat(lookupSearch.getItems().get(4).getSimilarProducts().get(1).getAsin()).isEqualTo("2738120873");
-        assertThat(lookupSearch.getItems().get(4).getSimilarProducts().get(1).getTitle()).isEqualTo("Trop intelligent pour être heureux ? L'adulte surdoué");
+        assertThat(searchAnswer.getItems().get(0).getSimilarProducts().size()).isEqualTo(5);
+        assertThat(searchAnswer.getItems().get(1).getSimilarProducts().size()).isEqualTo(5);
+        assertThat(searchAnswer.getItems().get(2).getSimilarProducts().size()).isEqualTo(5);
+        assertThat(searchAnswer.getItems().get(3).getSimilarProducts().size()).isEqualTo(5);
+        assertThat(searchAnswer.getItems().get(4).getSimilarProducts().get(1).getAsin()).isEqualTo("2738120873");
+        assertThat(searchAnswer.getItems().get(4).getSimilarProducts().get(1).getTitle()).isEqualTo("Trop intelligent pour être heureux ? L'adulte surdoué");
     }
     
     @Test
     public void parsingLocalSearchCheckBrowseNodes() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.getItems().get(0).getBrowseNodes().size()).isEqualTo(4);
-        assertThat(lookupSearch.getItems().get(1).getBrowseNodes().size()).isEqualTo(4);
-        assertThat(lookupSearch.getItems().get(2).getBrowseNodes().size()).isEqualTo(3);
-        assertThat(lookupSearch.getItems().get(3).getBrowseNodes().size()).isEqualTo(1);
-        assertThat(lookupSearch.getItems().get(4).getBrowseNodes().size()).isEqualTo(3);
+        assertThat(searchAnswer.getItems().get(0).getBrowseNodes().size()).isEqualTo(4);
+        assertThat(searchAnswer.getItems().get(1).getBrowseNodes().size()).isEqualTo(4);
+        assertThat(searchAnswer.getItems().get(2).getBrowseNodes().size()).isEqualTo(3);
+        assertThat(searchAnswer.getItems().get(3).getBrowseNodes().size()).isEqualTo(1);
+        assertThat(searchAnswer.getItems().get(4).getBrowseNodes().size()).isEqualTo(3);
     }
     
     @Test
     public void parsingLocalSearchCheckBrowseNodesChildren() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.getItems().get(4).getBrowseNodes().get(0).getChildren().size()).isEqualTo(0);
-        assertThat(lookupSearch.getItems().get(4).getBrowseNodes().get(1).getChildren().size()).isEqualTo(11);
+        assertThat(searchAnswer.getItems().get(4).getBrowseNodes().get(0).getChildren().size()).isEqualTo(0);
+        assertThat(searchAnswer.getItems().get(4).getBrowseNodes().get(1).getChildren().size()).isEqualTo(11);
     }
     
     @Test
     public void parsingLocalSearchCheckBrowseNodesDeepness() throws AnswerIsNotValidException {
-        assertThat(lookupSearch.getItems().get(4).getBrowseNodes().get(0).getAncestorDeepness()).isEqualTo(3);
-        assertThat(lookupSearch.getItems().get(4).getBrowseNodes().get(1).getAncestorDeepness()).isEqualTo(4);
+        assertThat(searchAnswer.getItems().get(4).getBrowseNodes().get(0).getAncestorDeepness()).isEqualTo(3);
+        assertThat(searchAnswer.getItems().get(4).getBrowseNodes().get(1).getAncestorDeepness()).isEqualTo(4);
     }
     
+    /****************************************************************************/
+    /*						Empty Search										*/
+    /****************************************************************************/
+    
+    @Test
+    public void firstAnswerIsNotValid() throws AnswerIsNotValidException {
+        assertThat(emptySearchAnswer.isItValid()).isEqualTo(true);
+    }
+
+    @Test
+    public void firstAnswerKeywordIsTheOneRequested() throws AnswerIsNotValidException {
+        assertThat(emptySearchAnswer.getRequest().getKeywords()).isEqualTo("%%");
+    }
+    
+    @Test
+    public void firstAnswerErrorCodeIsTheOneExpected() throws AnswerIsNotValidException {
+        assertThat(emptySearchAnswer.getError().getCode()).isEqualTo("AWS.ECommerceService.NoExactMatches");
+    }
+    
+    @Test
+    public void firstAnswerErrorMessageIsTheOneExpected() throws AnswerIsNotValidException {
+        assertThat(emptySearchAnswer.getError().getMessage()).isEqualTo("We did not find any matches for your request.");
+    }
+
+    @Test
+    public void firstAnswerCheckTotalResults() throws AnswerIsNotValidException {
+        assertThat(emptySearchAnswer.getTotalResults()).isEqualTo(0);
+    }
+    
+    @Test
+    public void firstAnswerCheckTotalPages() throws AnswerIsNotValidException {
+    	assertThat(emptySearchAnswer.getTotalPages()).isEqualTo(0);
+    }
 }

@@ -28,7 +28,7 @@ public abstract class XMLDefaultRequestLoader {
 	protected abstract RequestInAnswer loadContent() throws Exception;
 	
 	protected String tryToGetTextValueForOptionnalField(String key) {
-		return requestNode.childOrEmpty(key).retrieveTextValue();
+		return XMLDefaultParserAndLoaderHelper.tryToGetTextValueForOptionnalField(requestNode, key);
 	}
 	
 	

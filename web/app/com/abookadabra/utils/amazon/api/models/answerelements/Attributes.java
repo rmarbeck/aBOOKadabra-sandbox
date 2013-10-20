@@ -14,6 +14,7 @@ public class Attributes {
 	private String productGroup;
 	private String productTypeName;
 	private Date publicationDate;
+	private Date releaseDate;
 	private String publisher;
 	private String sku;
 	private String studio;
@@ -217,6 +218,14 @@ public class Attributes {
 
 	public void setLanguages(List<Language> languages) {
 		this.languages = languages;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 }

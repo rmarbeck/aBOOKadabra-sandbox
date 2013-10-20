@@ -5,7 +5,6 @@ import java.util.List;
 import static com.abookadabra.utils.amazon.api.RequestBuilderConstants.*;
 
 public class SimilarityLookupRequestBuilder extends RequestBuilder {
-	private Request builtRequest;
 	
 	public class SimilarityLookupRequestReady extends RequestReady {
 		protected SimilarityLookupRequestReady() {

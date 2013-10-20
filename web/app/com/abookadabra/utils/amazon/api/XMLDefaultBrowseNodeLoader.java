@@ -3,9 +3,11 @@ package com.abookadabra.utils.amazon.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abookadabra.utils.amazon.api.models.answerelements.BrowseNode;
-
 import static com.abookadabra.utils.amazon.api.XMLDefaultAnswerConstants.*;
+
+import static com.abookadabra.utils.amazon.api.XMLDefaultParserAndLoaderHelper.tryToGetTextValueForOptionnalField;
+
+import com.abookadabra.utils.amazon.api.models.answerelements.BrowseNode;
 
 public class XMLDefaultBrowseNodeLoader {
 	List<XMLAmazonNode> rootBrowseNodesXmlNodes;
@@ -22,10 +24,6 @@ public class XMLDefaultBrowseNodeLoader {
 		if (hasAtLeastOneBrowseNode())
 			return diveIntoBrowseNodeToLoadThem();
 		return new ArrayList<BrowseNode>();
-	}
-	
-	protected String tryToGetTextValueForOptionnalField(XMLAmazonNode node, String key) {
-		return node.childOrEmpty(key).retrieveTextValue();
 	}
 	
 	private boolean hasAtLeastOneBrowseNode() {

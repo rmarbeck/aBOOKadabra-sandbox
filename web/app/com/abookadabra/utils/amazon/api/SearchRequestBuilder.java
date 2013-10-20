@@ -3,7 +3,6 @@ package com.abookadabra.utils.amazon.api;
 import static com.abookadabra.utils.amazon.api.RequestBuilderConstants.*;
 
 public class SearchRequestBuilder extends RequestBuilder {
-	private Request builtRequest;
 	
 	public class SearchRequestReady extends RequestReady {
 		protected SearchRequestReady() {

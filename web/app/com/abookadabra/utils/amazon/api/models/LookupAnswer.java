@@ -1,16 +1,11 @@
 package com.abookadabra.utils.amazon.api.models;
 
-import java.util.ArrayList;
-
-import com.abookadabra.utils.amazon.api.models.Answer.AnswerIsNotValidException;
-import com.abookadabra.utils.amazon.api.models.answerelements.BrowseNodeRequest;
 import com.abookadabra.utils.amazon.api.models.answerelements.Item;
 import com.abookadabra.utils.amazon.api.models.answerelements.ItemLookupRequest;
 
 public class LookupAnswer extends Answer {
 
 	private LookupAnswer() {
-		super();
 		initialise();
 	}
 	
@@ -21,7 +16,7 @@ public class LookupAnswer extends Answer {
 	}
 	
 	public Item getItem() throws AnswerIsNotValidException {
-		if (isItAValidAnswer())
+		if (isItAValidAnswerWithAtLeastOneItem())
 			return items.get(0);
 		throw new AnswerIsNotValidException("Unable to get item, this is not a valid lookup answer.");
 	}

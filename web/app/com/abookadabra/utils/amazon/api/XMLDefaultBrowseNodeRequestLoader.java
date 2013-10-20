@@ -14,6 +14,7 @@ public class XMLDefaultBrowseNodeRequestLoader extends XMLDefaultRequestLoader {
 	protected RequestInAnswer loadContent() throws Exception {
 		BrowseNodeRequest browseNodeRequest = new BrowseNodeRequest(true);
 		browseNodeRequest.setBrowseNodeId(tryToGetTextValueForOptionnalField(AMAZON_XML_FIELD_REQUEST_BROWSE_NODE_ID));
+		browseNodeRequest.setResponseGroup(tryToGetTextValueForOptionnalField(AMAZON_XML_FIELD_REQUEST_BROWSE_NODE_RESP_GRP));
 		return browseNodeRequest;
 	}
 }

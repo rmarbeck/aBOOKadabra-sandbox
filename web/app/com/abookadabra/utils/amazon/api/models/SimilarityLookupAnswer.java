@@ -5,7 +5,6 @@ import com.abookadabra.utils.amazon.api.models.answerelements.SimilarityLookupRe
 public class SimilarityLookupAnswer extends Answer {
 
 	private SimilarityLookupAnswer() {
-		super();
 		initialise();
 	}
 	

@@ -2,15 +2,13 @@ package com.abookadabra.utils.amazon.api.models;
 
 import java.util.ArrayList;
 
-import com.abookadabra.utils.amazon.api.models.Answer.AnswerIsNotValidException;
+import com.abookadabra.utils.amazon.api.AnswerParser.UnableToLoadThisKindOfObject;
 import com.abookadabra.utils.amazon.api.models.answerelements.BrowseNodeRequest;
 import com.abookadabra.utils.amazon.api.models.answerelements.Item;
-import com.abookadabra.utils.amazon.api.models.answerelements.RequestInAnswer;
 
 public class BrowseNodeAnswer extends Answer {
 
 	private BrowseNodeAnswer() {
-		super();
 		initialise();
 	}
 	
@@ -20,12 +18,17 @@ public class BrowseNodeAnswer extends Answer {
 		return newInstance;
 	}
 	
+	@Override
 	protected void loadFrom(Object answerFromAmazonToParse) {
 		try {
 			prepareForLoadingObjectsFromContent(answerFromAmazonToParse);
 			loadBrowseNodes();
-		} catch (Exception e) {
+		} catch (UnableToLoadThisKindOfObject e) {
 			fillAnswerFromEmptyResult();
+		} catch (AnswerIsNotValidException e) {
+			fillAnswerFromEmptyResult();
+		} catch(Exception e) {
+			//Format of request is valid but the answer contains an error 
 		}
 	}
 	
@@ -37,7 +40,7 @@ public class BrowseNodeAnswer extends Answer {
 	}
 	
 	@Override
-	protected boolean isItAValidAnswer() {
+	protected boolean isItAValidAnswerWithAtLeastOneItem() {
 		return (request.isItValid());
 	}
 	
