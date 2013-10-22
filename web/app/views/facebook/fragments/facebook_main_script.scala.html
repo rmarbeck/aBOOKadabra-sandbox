@@ -1,0 +1,41 @@
+
+@import com.abookadabra.utils.facebook.login._;
+
+	<script>
+		$(document).ready(function() {
+			$.ajaxSetup({ cache: true });
+			$.getScript('//connect.facebook.net/fr_FR/all.js', function(){
+				FB.init({
+					appId		: '@Secrets.getAppId()',
+					channelUrl	: '//@Secrets.getDomain()@routes.Assets.at("html/facebook/channel.html")',
+					status     	: true,
+					cookie     	: true,
+					xfbml      	: true
+				});     
+				
+				$('#loginbutton,#feedbutton').removeAttr('disabled');
+				
+				FB.Event.subscribe('auth.authResponseChange', function(response) {
+					if (response.status === 'connected') {
+						testAPI(response);
+						console.log('change.');
+						$("#login").addClass("hidden");
+						$("#logout").removeClass("hidden");
+					} else if (response.status === 'not_authorized') {
+						console.log('change.');
+						$("#logout").addClass("hidden");
+						$("#login").removeClass("hidden");
+						$("#facebook_result").html('toto');
+					} else {
+					    console.log('change.');
+						$("#logout").addClass("hidden");
+						$("#login").removeClass("hidden");
+						$("#facebook_result").html('toto');
+					}
+				});
+				
+
+			});			  
+
+		});
+	</script>

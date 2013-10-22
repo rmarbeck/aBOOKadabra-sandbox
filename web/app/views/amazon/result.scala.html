@@ -1,6 +1,6 @@
 @(answer: com.abookadabra.utils.amazon.api.models.Answer)
 
-@main("Welcome to Amazon digger") {
+@template.main("Welcome to Amazon digger") {
 
     @for(item <- answer.getItems()) {
     	<p>@item.getAttributes().getTitle()</p>

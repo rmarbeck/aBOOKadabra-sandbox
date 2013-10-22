@@ -1,6 +1,8 @@
 @(message: String)
 
-@main("Welcome to Play") {
+@template.main("Welcome to Play") {
+
+	@session.get("name")
 
 	<!--@message-->
 	<a href="@routes.AmazonDigger.index()">Digger</a>

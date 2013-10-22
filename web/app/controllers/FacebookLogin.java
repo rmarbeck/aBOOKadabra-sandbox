@@ -26,7 +26,28 @@ public class FacebookLogin extends Controller {
         return ok(index.render());
     }
 
-    public static Result test() {
-        return ok(test.render());
+    public static Result testJQuery() {
+        return ok(test_with_jquery.render());
     }
+    
+    public static Result ajaxReceiveUserInfo() {
+    	Logger.info(form().bindFromRequest().get("token"));
+    	Logger.info(form().bindFromRequest().get("uid"));
+    	Logger.info(form().bindFromRequest().get("signedRequest"));
+    	Logger.info(form().bindFromRequest().get("expiresIn"));
+    	session().put("name", form().bindFromRequest().get("uid"));
+        return ok(test_with_jquery.render());
+    }
+    
+	/**
+	 * Building the router for ajax calls
+	 */
+	public static Result javascriptRoutes() {
+		response().setContentType("text/javascript");
+		return ok(
+				Routes.javascriptRouter("jsRoutes",
+						controllers.routes.javascript.FacebookLogin.ajaxReceiveUserInfo()
+						)
+				);
+	}
 }

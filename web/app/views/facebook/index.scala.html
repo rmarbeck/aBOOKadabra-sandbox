@@ -1,5 +1,6 @@
 
 
-@main("Welcome to Facebook") {
-	<a href="@routes.FacebookLogin.test()">Facebook Test</a>
+@views.html.template.main_with_facebook("Welcome to Facebook") {
+	<p><a href="@routes.FacebookLogin.testJQuery()">Facebook Test JQuery</a></p>
+	<div id="facebook_result"></div>
 }
