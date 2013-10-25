@@ -67,22 +67,35 @@ public class XMLDefaultAnswerConstants {
 	protected static String AMAZON_XML_FIELD_REQUEST_BROWSE_NODE_ID				= "BrowseNodeId";
 	protected static String AMAZON_XML_FIELD_REQUEST_BROWSE_NODE_RESP_GRP		= "ResponseGroup";
 	
-	protected static String AMAZON_XML_FIELD_EDITOR_REVIEWS 			= "EditorialReviews";
-	protected static String AMAZON_XML_FIELD_EDITOR_REVIEW   			= "EditorialReview";
-	protected static String AMAZON_XML_FIELD_EDITOR_REVIEW_SOURCE		= "Source";
-	protected static String AMAZON_XML_FIELD_EDITOR_REVIEW_CONTENT	= "Content";
+	protected static String AMAZON_XML_FIELD_EDITOR_REVIEWS			 			= "EditorialReviews";
+	protected static String AMAZON_XML_FIELD_EDITOR_REVIEW   					= "EditorialReview";
+	protected static String AMAZON_XML_FIELD_EDITOR_REVIEW_SOURCE				= "Source";
+	protected static String AMAZON_XML_FIELD_EDITOR_REVIEW_CONTENT				= "Content";
 	
-	protected static String AMAZON_XML_FIELD_TOTAL_RESULTS			= "TotalResults";
-	protected static String AMAZON_XML_FIELD_TOTAL_PAGES				= "TotalPages";
-	protected static String AMAZON_XML_FIELD_ITEM_PAGE				= "ItemPage";
+	protected static String AMAZON_XML_FIELD_TOTAL_RESULTS						= "TotalResults";
+	protected static String AMAZON_XML_FIELD_TOTAL_PAGES						= "TotalPages";
+	protected static String AMAZON_XML_FIELD_ITEM_PAGE							= "ItemPage";
 	
-	protected static String AMAZON_XML_FIELD_SIMILAR_PRODUCT			= "SimilarProduct";
-	protected static String AMAZON_XML_FIELD_SIMILAR_PRODUCT_ASIN		= "ASIN";
-	protected static String AMAZON_XML_FIELD_SIMILAR_PRODUCT_TITLE	= "Title";
+	protected static String AMAZON_XML_FIELD_SIMILAR_PRODUCT					= "SimilarProduct";
+	protected static String AMAZON_XML_FIELD_SIMILAR_PRODUCT_ASIN				= "ASIN";
+	protected static String AMAZON_XML_FIELD_SIMILAR_PRODUCT_TITLE				= "Title";
 	
-	protected static String AMAZON_XML_FIELD_BROWSE_NODE				= "BrowseNode";
-	protected static String AMAZON_XML_FIELD_BROWSE_NODE_ID			= "BrowseNodeId";
-	protected static String AMAZON_XML_FIELD_BROWSE_NODE_NAME			= "Name";
-	protected static String AMAZON_XML_FIELD_BROWSE_NODE_ANCESTORS	= "Ancestors";
-	protected static String AMAZON_XML_FIELD_BROWSE_NODE_CHILDREN		= "Children";	
+	protected static String AMAZON_XML_FIELD_BROWSE_NODE						= "BrowseNode";
+	protected static String AMAZON_XML_FIELD_BROWSE_NODE_ID						= "BrowseNodeId";
+	protected static String AMAZON_XML_FIELD_BROWSE_NODE_NAME					= "Name";
+	protected static String AMAZON_XML_FIELD_BROWSE_NODE_ANCESTORS				= "Ancestors";
+	protected static String AMAZON_XML_FIELD_BROWSE_NODE_CHILDREN				= "Children";
+	
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SETS					= "ImageSets";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET						= "ImageSet";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_URL					= "URL";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_HEIGHT				= "Height";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_WIDTH				= "Width";
+	protected static String AMAZON_XML_FIELD_ATTRIBUTE_ITEM_IMAGE_SET_UNITS		= "Units";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_SWATCH				= "SwatchImage";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_SMALL				= "SmallImage";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_THUMBNAIL			= "ThumbnailImage";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_TINY				= "TinyImage";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_MEDIUM				= "MediumImage";
+	protected static String AMAZON_XML_FIELD_ITEM_IMAGE_SET_LARGE				= "LargeImage";
 }

@@ -39,15 +39,25 @@ public class LookupRequestBuilder extends RequestBuilder {
 	}
 
 	public LookupRequestReady forListOfASINs(List<String> asins) {
-		return setItems(AMAZON_ID_TYPE_PARAM_ASIN_VALUE, asins);
+		return setItemsForAsin(AMAZON_ID_TYPE_PARAM_ASIN_VALUE, asins);
 	}
 	
 	public LookupRequestReady forListOfIsbns(List<String> isbns) {
-		return setItems(AMAZON_ID_TYPE_PARAM_ISBN_VALUE, isbns);
+		return setItemsThatAreNotAsin(AMAZON_ID_TYPE_PARAM_ISBN_VALUE, isbns);
 	}
 	
 	public LookupRequestReady forListOfEANs(List<String> eans) {
-		return setItems(AMAZON_ID_TYPE_PARAM_EAN_VALUE, eans);
+		return setItemsThatAreNotAsin(AMAZON_ID_TYPE_PARAM_EAN_VALUE, eans);
+	}
+	
+	private LookupRequestReady setItemsThatAreNotAsin(String key, List<String> values) {
+		builtRequest.addParam(AMAZON_SEARCH_INDEX_PARAM, AMAZON_SEARCH_INDEX_FOR_BOOKS_PARAM_VALUE);
+		return setItems(key, values);
+	}
+	
+	private LookupRequestReady setItemsForAsin(String key, List<String> values) {
+		return setItems(key, values);
+
 	}
 	
 	private LookupRequestReady setItems(String key, List<String> values) {

@@ -114,7 +114,7 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 			loadFirstLevelFieldsOrRaiseException(rootNodeWhereIsItem, item);
 			loadAttributesOrRaiseException(rootNodeWhereIsItem, item);
 			tryToLoadEditorialReview(rootNodeWhereIsItem, item);
-			//loadImages(node, item);
+			tryToLoadImages(rootNodeWhereIsItem, item);
 			tryToLoadSimilarProducts(rootNodeWhereIsItem, item);
 			tryToLoadBrowseNodes(rootNodeWhereIsItem, item);
 			return item;	
@@ -180,17 +180,7 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 		//TODO
 		XMLAmazonNode lowestPrice = node.childOrEmpty(AMAZON_XML_FIELD_PRICE);
 		//item.setLowestPrice(lowestPrice.child(AMAZON_XML_FIELD_PRICE_AMOUNT).retrieveLongValue()/100);
-	}
-	
-	private static void tryToLoadImages(XMLAmazonNode node, Item item) {
-		//TODO
-		List<ItemImage> images = new ArrayList<ItemImage>();
-		//List<XMLAmazonNode> values = node.children(AMazon);
-		
-		XMLAmazonNode lowestPrice = node.childOrEmpty(AMAZON_XML_FIELD_PRICE);
-		//item.setLowestPrice(lowestPrice.child(AMAZON_XML_FIELD_PRICE_AMOUNT).retrieveLongValue()/100);
-	}
-	
+	}	
 	
 	private static void tryToLoadSimpleAttributes(XMLAmazonNode node, Attributes attributes) {
 		attributes.setTitle(tryToGetTextValueForOptionnalField(node, AMAZON_XML_FIELD_TITLE));
@@ -265,6 +255,10 @@ public class XMLDefaultAnswerParser implements AnswerParser {
 	
 	private static void tryToLoadSimilarProducts(XMLAmazonNode itemNode, Item item) {
 		item.setSimilarProducts(XMLDefaultSimilarProductsLoader.load(itemNode));
+	}
+	
+	private static void tryToLoadImages(XMLAmazonNode itemNode, Item item) {
+		item.setImages(XMLDefaultItemImagesLoader.load(itemNode));
 	}
 	
 	private static void tryToLoadBrowseNodes(XMLAmazonNode itemNode, Item item) {

@@ -69,13 +69,13 @@ public abstract class Answer {
 	public List<Item> getItems() throws AnswerIsNotValidException {
 		if (isItAValidAnswerWithAtLeastOneItem())
 			return items;
-		throw new AnswerIsNotValidException("Unable to get items, this is not a valid answer.");
+		throw new AnswerIsNotValidException("Unable to get items, here is the reason why : "+error.getMessage());
 	}
 
 	public Item getItem() throws AnswerIsNotValidException {
 		if (isItAValidAnswerWithAtLeastOneItem())
 			return items.get(0);
-		throw new AnswerIsNotValidException("Unable to get item, this is not a valid answer.");
+		throw new AnswerIsNotValidException("Unable to get any item, here is the reason why : "+error.getMessage());
 	}
 	
 	private void checkRequestSummaryForErrors() throws Exception {

@@ -1,0 +1,11 @@
+@(title: String, before_head: Html = Html(""), after_head: Html = Html(""), before_footer: Html = Html(""), after_footer: Html = Html(""))(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    @layout.fragments.head(title, before_head, after_head)
+    <body>
+        @content
+        @layout.fragments.foot(before_footer, after_footer)
+    </body>
+</html>

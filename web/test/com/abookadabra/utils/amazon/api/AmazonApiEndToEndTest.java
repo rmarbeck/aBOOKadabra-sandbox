@@ -65,7 +65,7 @@ public class AmazonApiEndToEndTest {
 		Request lookupWithInvalidASIN = LookupRequestBuilder.build().forASIN("BADASIN").getRequest();
 		Promise<Response> lookupWithInvalidASINPromised = RequestHelper.getWSRequestHolder(lookupWithInvalidASIN).get();
 		
-		Request lookupWithBookThatMayExist = LookupRequestBuilder.build().forIsbn(DA_VINCI_CODE_ISBN).inBooksIndex().largeResponse().getRequest();
+		Request lookupWithBookThatMayExist = LookupRequestBuilder.build().forIsbn(DA_VINCI_CODE_ISBN).largeResponse().getRequest();
 		Promise<Response> lookupWithBookThatMayExistPromised = RequestHelper.getWSRequestHolder(lookupWithBookThatMayExist).get();
 		
 		/***** Similarity Lookup ******/
@@ -181,7 +181,7 @@ public class AmazonApiEndToEndTest {
     @Test
     public void searchRequestForTestKeywordAnswerCheckTotalPages() throws AnswerIsNotValidException {
     	assertThat(searchRequestForTestKeywordAnswer.getTotalPages()).isNotEqualTo(0);
-    	assertThat(searchRequestForTestKeywordAnswer.getTotalPages()*10).isGreaterThan(searchRequestForTestKeywordAnswer.getTotalResults());
+    	assertThat(searchRequestForTestKeywordAnswer.getTotalPages()*10).isGreaterThanOrEqualTo(searchRequestForTestKeywordAnswer.getTotalResults());
     }
     
     @Test
@@ -415,6 +415,16 @@ public class AmazonApiEndToEndTest {
         assertThat(lookupWithBookThatMayExistAnswer.getItem().getBrowseNodes().size()).isGreaterThan(3);
         assertThat(lookupWithBookThatMayExistAnswer.getItem().getBrowseNodes().get(2).hasAncestor()).isEqualTo(true);
         assertThat(lookupWithBookThatMayExistAnswer.getItem().getBrowseNodes().get(2).getName()).isNotEmpty();
+    }
+    
+    @Test
+    public void lookupWithBookThatMayExistCheckImages() throws AnswerIsNotValidException {
+        assertThat(lookupWithBookThatMayExistAnswer.getItem().getImages().size()).isGreaterThan(1);
+    }
+    
+    @Test
+    public void lookupWithBookThatMayExistCheckImagesUrls() throws AnswerIsNotValidException {
+   		assertThat(lookupWithBookThatMayExistAnswer.getItem().getImages().get(0).getUrl()).contains("http://");
     }
     
     /****************************************************************************/

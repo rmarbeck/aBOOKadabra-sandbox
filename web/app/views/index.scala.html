@@ -1,11 +1,12 @@
 @(message: String)
 
-@template.main("Welcome to Play") {
+@layout.main("Welcome to Play") {
 
-	@session.get("name")
+	
 
 	<!--@message-->
-	<a href="@routes.AmazonDigger.index()">Digger</a>
-	<a href="@routes.FacebookLogin.index()">Facebook</a>
+	<p><a href="@routes.AmazonDigger.index()">Digger</a></p>
+	<p><a href="@routes.FacebookLogin.index()">Facebook</a></p>
+	<p><a href="@routes.AkkaHello.index()">Akka</a></p>
 
 }

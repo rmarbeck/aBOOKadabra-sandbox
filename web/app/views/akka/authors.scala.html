@@ -1,0 +1,9 @@
+@(books: List[models.SimpleBook])
+
+@layout.main("Welcome to Play") {
+	@for((book, index) <- books.zipWithIndex) {
+		@if(book.imageUrl!=null) {<img src="@book.imageUrl" />}
+		<p>@index : @for(author <- book.authors) {@author & } //  @book.title - @book.description</p>
+	}
+
+}

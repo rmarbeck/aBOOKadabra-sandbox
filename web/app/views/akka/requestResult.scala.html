@@ -1,0 +1,23 @@
+@(mapOfBooks: Map[Integer, List[models.SimpleBook]], requests: Map[Integer, String])
+
+@import com.abookadabra.utils.StringHelper;
+
+@layout.main("Welcome to Play") {
+	<table>
+	@for((key, books) <- mapOfBooks) {
+		<tr>
+		@for((book, index) <- books.zipWithIndex) {
+			<td>@if(book.imageUrl!=null) {<img src="@book.imageUrl" />}</td>
+			<td><p>@(key) : @for((author, index) <- book.authors.zipWithIndex) {@if(index>0) { & }@author} //  @StringHelper.truncateWithEndPattern(book.title, 20) - @StringHelper.truncateWithEndPattern(book.description, 30)</p></td>
+		}
+		</tr>
+		<tr>
+			<td>
+				<a href="@requests.get(key)">request</a>
+			</td>
+		</tr>
+	}
+	</table>
+		
+
+}

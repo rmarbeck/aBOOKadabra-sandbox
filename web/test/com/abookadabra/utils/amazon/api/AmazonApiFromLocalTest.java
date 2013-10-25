@@ -213,6 +213,18 @@ public class AmazonApiFromLocalTest {
         assertThat(lookupAnswer.getItem().getBrowseNodes().size()).isEqualTo(1);
     }
     
+    @Test
+    public void parsingLocalLookupFileCheckImages() throws AnswerIsNotValidException {
+        assertThat(lookupAnswer.getItem().getImages().size()).isEqualTo(9);
+    }
+    
+    @Test
+    public void parsingLocalLookupFileCheckImagesUrls() throws AnswerIsNotValidException {
+    	for (int index = 0; index < 9; index++) {
+    		assertThat(lookupAnswer.getItem().getImages().get(index).getUrl()).contains("http://");
+    	}
+    }
+    
     /****************************************************************************/
     /*						Search												*/
     /****************************************************************************/

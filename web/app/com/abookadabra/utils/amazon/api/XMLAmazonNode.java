@@ -32,6 +32,18 @@ public class XMLAmazonNode {
 		return isAnEmptyNode;
 	}
 	
+	public boolean isNotEmpty() {
+		return !isItEmpty();
+	}
+	
+	public XMLAmazonNode parent() throws NodeNotFoundException {
+		return new XMLAmazonNode(getParent());
+	}
+	
+	public String name() throws NodeNotFoundException {
+		return getName();
+	}
+	
 	public XMLAmazonNode child(String key) throws NodeNotFoundException {
 		return new XMLAmazonNode(nodeOfGivenIndexFromListOfChildren(key, 0));
 	}
@@ -51,6 +63,22 @@ public class XMLAmazonNode {
 	
 	public XMLAmazonNode firstChild() throws NodeNotFoundException {
 		return new XMLAmazonNode(node.getFirstChild());
+	}
+	
+	public XMLAmazonNode parentOrEmpty() {
+		try {
+			return parent();
+		} catch (NodeNotFoundException e) {
+			return createEmptyNode();
+		}
+	}
+	
+	public String nameOrEmpty() {
+		try {
+			return getName();
+		} catch (NodeNotFoundException e) {
+			return "";
+		}
 	}
 
 	public XMLAmazonNode childOrEmpty(String key) {
@@ -87,6 +115,12 @@ public class XMLAmazonNode {
 		}
 	}
 	
+	public String retrieveTextValueOfAttribute(String key) {
+		if (isAnEmptyNode)
+			return "";
+		return node.getAttributes().getNamedItem(key).getNodeValue();
+	}
+	
 	public String retrieveTextValue() {
 		if (isAnEmptyNode)
 			return "";
@@ -111,6 +145,20 @@ public class XMLAmazonNode {
 		} catch (NumberFormatException n) {
 			return -1L;
 		}
+	}
+	
+	private Node getParent() throws NodeNotFoundException {
+		if (isNotEmpty()) {
+			return node.getParentNode();
+		}
+		throw new NodeNotFoundException("This node is empty, cannot get it's parent.");
+	}
+	
+	private String getName() throws NodeNotFoundException {
+		if (isNotEmpty()) {
+			return node.getNodeName();
+		}
+		throw new NodeNotFoundException("This node is empty, cannot get it's name.");
 	}
 	
 	private Node nodeOfGivenIndexFromListOfChildren(String key, int indexStaringAt0) throws NodeNotFoundException {

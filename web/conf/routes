@@ -9,11 +9,18 @@ GET     /                           controllers.Application.index()
 GET     /amazon/                    controllers.AmazonDigger.index()
 POST    /amazon/                    controllers.AmazonDigger.search()
 
+# Akka
+GET    /akka/     		              controllers.AkkaHello.index()
+GET    /akka/hello                    controllers.AkkaHello.hello()
+GET    /akka/title              		controllers.AkkaHello.getTitle()
+GET    /akka/author              		controllers.AkkaHello.getFromAuthor()
+GET    /akka/search						controllers.AkkaHello.getFromSearch()
+
+
 # Facebook login
 GET     /facebook/                    controllers.FacebookLogin.index()
 GET     /facebook/testJQ                controllers.FacebookLogin.testJQuery()
 GET     /facebook/ajax/display          controllers.FacebookLogin.ajaxReceiveUserInfo()
-
 
 # For AJAX
 GET     /assets/javascripts/routes          controllers.FacebookLogin.javascriptRoutes()

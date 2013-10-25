@@ -1,0 +1,17 @@
+@(title: String)(content: Html)
+
+@empty = {}
+
+@after_head = {
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/facebook-head.js")"></script>
+}
+
+@after_footer = {
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/facebook-foot.js")"></script>
+	<script type="text/javascript" src="@routes.FacebookLogin.javascriptRoutes()"></script>
+}
+
+
+@views.html.layout.main(title, empty, after_head, empty, after_footer) {
+	@content
+}

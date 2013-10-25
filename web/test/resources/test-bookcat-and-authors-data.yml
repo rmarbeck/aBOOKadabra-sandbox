@@ -1,0 +1,38 @@
+
+# BookCategories
+
+bookCategories:
+
+    - &Root !!models.BookCategory
+        name:           Root
+        description:    Root of root
+
+    - &Thriller !!models.BookCategory
+        name:           Thriller
+        description:    Root of Thrillers
+        parents:        [*Root]
+
+    - &Serial !!models.BookCategory
+        name:           Serial
+        description:    Serial Killers
+        parents:        [*Thriller]
+
+    - &Psychologique !!models.BookCategory
+        name:           Psychologique
+        description:    Psycho
+        parents:        [*Thriller]
+
+    - &Judiciaire !!models.BookCategory
+        name:           Judiciaire
+        description:    Judiciaire
+        parents:        [*Thriller]
+
+    - &Noir !!models.BookCategory
+        name:           Noir
+        description:    Noir
+        parents:        [*Thriller]
+
+    - &NeoPolar !!models.BookCategory
+        name:           Neo Polar
+        description:    Neo Polar
+        parents:        [*Noir]
