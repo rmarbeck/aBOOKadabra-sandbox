@@ -8,6 +8,8 @@ GET     /                           controllers.Application.index()
 # AMAZON Digger
 GET     /amazon/                    controllers.AmazonDigger.index()
 POST    /amazon/                    controllers.AmazonDigger.search()
+GET     /amazon/browse              controllers.AmazonDigger.browseNode()
+GET     /amazon/nodecontent         controllers.AmazonDigger.nodeContent()
 
 # Akka
 GET    /akka/     		              controllers.AkkaHello.index()

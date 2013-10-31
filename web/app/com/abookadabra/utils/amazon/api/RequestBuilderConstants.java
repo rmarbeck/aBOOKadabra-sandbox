@@ -23,6 +23,7 @@ class RequestBuilderConstants {
 	static String AMAZON_AUTHOR_PARAM 						= "Author";
 	static String AMAZON_TITLE_PARAM 						= "Title";
 	static String AMAZON_KEYWORDS_PARAM 					= "Keywords";
+	static String AMAZON_BROWSENODE_PARAM 					= "BrowseNode";
 	static String AMAZON_SORT_PARAM		 					= "Sort";
 	static String AMAZON_SORT_PARAM_SALES_RANK_VALUE		= "salesrank";
 	static String AMAZON_SORT_PARAM_PRICE_RANK_VALUE		= "pricerank";
@@ -43,7 +44,7 @@ class RequestBuilderConstants {
 	static String AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_MOST_GIFTED		= "MostGifted";
 	static String AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_NEW_RELEASES		= "NewReleases";
 	static String AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_MOST_WISHED_FOR	= "MostWishedFor";
-	static String AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_TOP_SELLERS		= "Top Sellers";
+	static String AMAZON_RESPONSE_GROUP_PARAM_BROWSE_NODE_SPECIFIC_TOP_SELLERS		= "TopSellers";
 
 	
 	static String AMAZON_VERSION_PARAM 						= "Version";
@@ -55,6 +56,7 @@ class RequestBuilderConstants {
 	
 	static String AMAZON_BROWSE_NODE_PARAM					= "BrowseNodeId";
 	static int BROWSE_NODE_MIN								= 1;
+	static String BROWSE_NODE_DEFAULT						= "17";
 	
 	static String AMAZON_CONDITION_PARAM					= "Condition";
 	static String AMAZON_CONDITION_PARAM_NEW_VALUE			= "New";

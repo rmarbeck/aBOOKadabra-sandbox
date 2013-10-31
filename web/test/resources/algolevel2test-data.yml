@@ -1,0 +1,130 @@
+
+# BookCategories
+
+bookCategories:
+    - &Root !!models.BookCategory
+        name:           Root
+        type:           Real
+        description:    Root of root
+
+    - &Thriller !!models.BookCategory
+        name:           Thriller
+        type:           Real
+        description: |
+             Longue description
+             avec des retours à la ligne.
+        parent:         *Root
+
+    - &Serial !!models.BookCategory
+        name:           Serial
+        type:           Real
+        description:    Serial Killers
+        parent:         *Thriller
+
+    - &Psychologique !!models.BookCategory
+        name:           Psychologique
+        type:           Real
+        description:    Psycho
+        parent:         *Thriller
+
+    - &Judiciaire !!models.BookCategory
+        name:           Judiciaire
+        type:           Real
+        description:    Judiciaire
+        parent:         *Thriller
+
+    - &Noir !!models.BookCategory
+        name:           Noir
+        type:           Real
+        description:    Noir
+        parent:         *Thriller
+
+    - &NeoPolar !!models.BookCategory
+        name:           Neo Polar
+        type:           Real
+        description:    Neo Polar
+        parent:         *Noir
+
+# Authors
+
+authors:
+    - &SKing !!models.Author
+        fullname:
+              name:        King
+              firstname:   Stephen
+        score:
+            bestseller:           50
+            classical:            40
+            ico:                  0
+            hard:                 0
+            author:               *SKing
+        categories:
+             - {category: *Thriller, percentage: 70}
+             - {category: *Noir, percentage: 30}
+
+    - &FThilliez !!models.Author
+        fullname:
+              name:        Thilliez
+              firstname:   Franck
+        score:
+            bestseller:           40
+            classical:            0
+            ico:                  0
+            hard:                 0
+            author:               *FThilliez
+        categories:
+             - {category: *Thriller, percentage: 100}
+
+    - &AChristie !!models.Author
+        fullname:
+              name:        Christie
+              firstname:   Agatha
+        score:
+            bestseller:           40
+            classical:            50
+            ico:                  0
+            hard:                 0
+            author:               *AChristie
+        categories:
+             - {category: *Thriller, percentage: 70}
+             - {category: *Noir, percentage: 30}
+
+    - &JPatterson !!models.Author
+        fullname:
+              name:        Patterson
+              firstname:   James
+        score:
+            bestseller:           30
+            classical:            20
+            ico:                  10
+            hard:                 0
+            author:               *JPatterson
+        categories:
+             - {category: *Thriller, percentage: 100}
+
+    - &GSimenon !!models.Author
+        fullname:
+              name:        Simenon
+              firstname:   Georges
+        score:
+            bestseller:           10
+            classical:            50
+            ico:                  0
+            hard:                 20
+            author:               *GSimenon
+        categories:
+             - {category: *Thriller, percentage: 70}
+             - {category: *Judiciaire, percentage: 30}
+
+    - &JGrisham !!models.Author
+        fullname:
+              name:        Grisham
+              firstname:   John
+        score:
+            bestseller:           45
+            classical:            0
+            ico:                  0
+            hard:                 0
+            author:               *JGrisham
+        categories:
+             - {category: *Thriller, percentage: 100}

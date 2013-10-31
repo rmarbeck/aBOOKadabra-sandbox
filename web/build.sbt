@@ -8,6 +8,6 @@ libraryDependencies ++= Seq(
   cache
 )     
 
-play.Project.playJavaSettings
+playJavaSettings
 
 compile in Test <<= PostCompile(Test)

@@ -1,0 +1,17 @@
+@(answerWrapper: com.abookadabra.utils.BrowseNodeAnswerWrapper)
+
+@layout.main("Welcome to Amazon digger") {
+    
+    <p><a href="@answerWrapper.getRequestUrl()">Source</a></p>
+    
+    @for(item <- answerWrapper.getAnswer().getItem().getBrowseNodes()) {
+        @for(child <- item.getChildren()) {
+    	   <p><a href="@routes.AmazonDigger.browseNode()?id=@child.getNodeId()">@child.getName()</a></p><p><a href="@routes.AmazonDigger.nodeContent()?id=@child.getNodeId()">--></a></p>
+    	}
+    	------
+    	@for(ancestor <- item.getAncestors()) {
+    	   <p>@ancestor.getNodeId() : @ancestor.getName()</p>
+    	} 
+    }
+
+}

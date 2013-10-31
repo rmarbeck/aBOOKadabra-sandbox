@@ -1,0 +1,43 @@
+
+# Authors
+alias:
+    - &KingAlias !!models.AuthorAlias
+        alias:                S King
+
+authors:
+    - &SKing !!models.Author
+        fullname:
+              name:        King
+              firstname:   Stephen
+        alias:     [*KingAlias]
+
+    - &FThilliez !!models.Author
+        fullname:
+              name:        Thilliez
+              firstname:   Franck
+        score:
+              bestseller:           50
+              classical:            0
+              ico:                  0
+              hard:                 0
+
+score:
+    - &BestSeller !!models.RecommendationScore
+        bestseller:           50
+        classical:            0
+        ico:                  0
+        hard:                 0
+        author:               *SKing
+
+    - &Classical !!models.RecommendationScore
+        bestseller:           0
+        classical:            50
+        ico:                  0
+        hard:                 0
+        author:               *FThilliez
+
+    - &Ico !!models.RecommendationScore
+        bestseller:           0
+        classical:            0
+        ico:                  50
+        hard:                 0

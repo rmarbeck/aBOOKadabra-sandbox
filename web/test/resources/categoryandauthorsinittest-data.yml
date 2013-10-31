@@ -1,0 +1,2389 @@
+﻿
+# BookCategories
+
+resonances:
+    - &Resonance1 !!models.Resonance
+        name:           Resonance1
+        description:    Res1
+
+    - &ResSerial !!models.Resonance
+        name:           Serial Killer
+        description:    Res2
+
+bookCategories:
+
+    - &Root !!models.BookCategory
+        name:           Root
+        type:           Real
+        description:    Root of root
+
+    - &Thriller !!models.BookCategory
+        name:           Thriller
+        type:           Real
+        description: |
+             Longue description
+             avec des retours à la ligne.
+        parent:         *Root
+
+    - &Serial !!models.BookCategory
+        name:           Serial
+        type:           Real
+        description:    Serial Killers
+        parent:         *Thriller
+        resonances:     [*ResSerial]
+
+    - &Surnaturel !!models.BookCategory
+        name:           Surnaturel
+        type:           Real
+        description:    Thriller surnaturel
+        parent:         *Thriller
+
+    - &Psychologique !!models.BookCategory
+        name:           Psychologique
+        type:           Real
+        description:    Psycho
+        parent:         *Thriller
+
+    - &Judiciaire !!models.BookCategory
+        name:           Judiciaire
+        type:           Real
+        description:    Judiciaire
+        parent:         *Thriller
+
+    - &Business !!models.BookCategory
+        name:           Business
+        type:           Real
+        description:    Business
+        parent:         *Thriller
+
+    - &Technologique !!models.BookCategory
+        name:           Technologique
+        type:           Real
+        description:    Technologique
+        parent:         *Thriller
+
+    - &Medical !!models.BookCategory
+        name:           Médical
+        type:           Real
+        description:    Médical
+        parent:         *Thriller
+
+    - &Suspense !!models.BookCategory
+        name:           Suspense
+        type:           Real
+        description:    Médical
+        parent:         *Thriller
+
+    - &Procedural !!models.BookCategory
+        name:           Procédural
+        type:           Real
+        description:    Procedural
+        parent:         *Thriller
+
+    - &Noir !!models.BookCategory
+        name:           Noir
+        type:           Real
+        description:    Noir
+        parent:         *Root
+
+    - &Societal !!models.BookCategory
+        name:           Sociétal
+        type:           Real
+        description:    Sociétal
+        parent:         *Noir
+
+    - &HardBoiled !!models.BookCategory
+        name:           Hard boiled
+        type:           Real
+        description:    Hard boiled
+        parent:         *Noir
+
+    - &NeoPolar !!models.BookCategory
+        name:           Neo Polar
+        type:           Real
+        description:    Neo Polar
+        parent:         *Noir
+
+    - &NeoPolarAnti !!models.BookCategory
+        name:           NeoPolar anticipation
+        type:           Real
+        description:    Neo Polar d'anticipation
+        parent:         *NeoPolar
+
+    - &Espionnage !!models.BookCategory
+        name:           Espionnage
+        type:           Real
+        description:    Roman d'espionnage
+        parent:         *Root
+
+    - &Conspiration !!models.BookCategory
+        name:           Conspiration
+        type:           Real
+        description:    Conspiration
+        parent:         *Espionnage
+
+    - &Army !!models.BookCategory
+        name:           Armées
+        type:           Real
+        description:    Armées
+        parent:         *Espionnage
+
+    - &Politique !!models.BookCategory
+        name:           Politique
+        type:           Real
+        description:    Politique
+        parent:         *Espionnage
+
+    - &Enquete !!models.BookCategory
+        name:           Enquête
+        type:           Real
+        description:    Enquête
+        parent:         *Root
+
+    - &Whodunit !!models.BookCategory
+        name:           Whodunit
+        type:           Real
+        description:    Whodunit
+        parent:         *Enquete
+
+    - &Cozy !!models.BookCategory
+        name:           Cozy Mystery
+        type:           Real
+        description:    Cozy
+        parent:         *Whodunit
+
+    - &Rompol !!models.BookCategory
+        name:           Rompol
+        type:           Real
+        description:    Whodunit
+        parent:         *Enquete
+
+    - &Humoristique !!models.BookCategory
+        name:           Humoristique
+        type:           Real
+        description:    Humoristique
+        parent:         *Root
+
+    - &Historique !!models.BookCategory
+        name:           Historique
+        type:           Real
+        description:    Historique
+        parent:         *Root
+
+    - &Esoterique !!models.BookCategory
+        name:           Esotérique
+        type:           Real
+        description:    Esotérique
+        parent:         *Historique
+
+    - &Angleterre !!models.BookCategory
+        name:           Angleterre
+        type:           Real
+        description:    Angleterre
+        parent:         *Historique
+
+    - &France !!models.BookCategory
+        name:           Historique français
+        type:           Real
+        description:    Historique français
+        parent:         *Historique
+
+    - &Etats-Unis !!models.BookCategory
+        name:           Historique US
+        type:           Real
+        description:    Historique US
+        parent:         *Historique
+
+    - &Russe !!models.BookCategory
+        name:           Historique russe
+        type:           Real
+        description:    Historique russe
+        parent:         *Historique
+
+#Authors
+authors:
+    - &Auteur1 !!models.Author
+         fullname:
+               name:          Allan Poe
+               firstname:     Edgar
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur1
+         categories:
+            - {category: *Enquete, percentage: 100 }
+
+    - &Auteur2 !!models.Author
+         fullname:
+               name:          Conan Doyle
+               firstname:     Arthur
+         score:
+               bestseller:    45
+               classical:     50
+               ico:           30
+               hard:          -20
+               author:        *Auteur2
+         categories:
+            - {category: *Enquete, percentage: 80 }
+            - {category: *Angleterre, percentage: 20 }
+
+    - &Auteur3 !!models.Author
+         fullname:
+               name:          Leblanc 
+               firstname:     Maurice
+         score:
+               bestseller:    -50
+               classical:     50
+               ico:           40
+               hard:          -20
+               author:        *Auteur3
+         categories:
+            - {category: *Enquete, percentage: 100 }
+
+    - &Auteur4 !!models.Author
+         fullname:
+               name:          Leroux 
+               firstname:     Gaston
+         score:
+               bestseller:    -50
+               classical:     50
+               ico:           20
+               hard:          0
+               author:        *Auteur4
+         categories:
+            - {category: *Enquete, percentage: 100 }
+
+    - &Auteur5 !!models.Author
+         fullname:
+               name:          Simenon 
+               firstname:     Georges
+         score:
+               bestseller:    40
+               classical:     50
+               ico:           40
+               hard:          0
+               author:        *Auteur5
+         categories:
+            - {category: *Enquete, percentage: 100 }
+
+    - &Auteur6 !!models.Author
+         fullname:
+               name:          Manchette 
+               firstname:     Jean-Patrick
+         score:
+               bestseller:    30
+               classical:     10
+               ico:           50
+               hard:          0
+               author:        *Auteur6
+         categories:
+            - {category: *NeoPolar, percentage: 100 }
+
+    - &Auteur7 !!models.Author
+         fullname:
+               name:          Daeninckx 
+               firstname:     Didier
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur7
+         categories:
+            - {category: *NeoPolar, percentage: 100 }
+
+    - &Auteur8 !!models.Author
+         fullname:
+               name:          Oppel 
+               firstname:     Jean-Hugues
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur8
+         categories:
+            - {category: *NeoPolar, percentage: 100 }
+
+    - &Auteur9 !!models.Author
+         fullname:
+               name:          Manotti 
+               firstname:     Dominique
+         score:
+               bestseller:    10
+               classical:     -10
+               ico:           40
+               hard:          20
+               author:        *Auteur9
+         categories:
+            - {category: *NeoPolar, percentage: 100 }
+
+    - &Auteur10 !!models.Author
+         fullname:
+               name:          Pouy 
+               firstname:     Jean-Bernard
+         score:
+               bestseller:    0
+               classical:     0
+               ico:           30
+               hard:          40
+               author:        *Auteur10
+         categories:
+            - {category: *NeoPolar, percentage: 70 }
+            - {category: *Humoristique, percentage: 30 }
+
+    - &Auteur11 !!models.Author
+         fullname:
+               name:          Lehanne 
+               firstname:     Denis
+         score:
+               bestseller:    50
+               classical:     10
+               ico:           15
+               hard:          0
+               author:        *Auteur11
+         categories:
+            - {category: *Psychologique, percentage: 30 }
+            - {category: *Noir, percentage: 20 }
+            - {category: *Societal, percentage: 50 }
+
+    - &Auteur12 !!models.Author
+         fullname:
+               name:          Dreux Gallou
+               firstname:     Alain
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur12
+         categories:
+            - {category: *NeoPolar, percentage: 100 }
+
+    - &Auteur13 !!models.Author
+         fullname:
+               name:          Jonquet 
+               firstname:     Thierry
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur13
+         categories:
+            - {category: *NeoPolar, percentage: 100 }
+
+    - &Auteur14 !!models.Author
+         fullname:
+               name:          Ledun 
+               firstname:     Marin
+         score:
+               bestseller:    -40
+               classical:     -40
+               ico:           35
+               hard:          30
+               author:        *Auteur14
+         categories:
+            - {category: *NeoPolar, percentage: 60 }
+            - {category: *NeoPolarAnti, percentage: 40 }
+
+    - &Auteur15 !!models.Author
+         fullname:
+               name:          G. Dantec
+               firstname:     Maurice
+         score:
+               bestseller:    20
+               classical:     0
+               ico:           40
+               hard:          30
+               author:        *Auteur15
+         categories:
+            - {category: *NeoPolarAnti, percentage: 100 }
+
+    - &Auteur16 !!models.Author
+         fullname:
+               name:          Leroy 
+               firstname:     Jérôme
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur16
+         categories:
+            - {category: *NeoPolarAnti, percentage: 100 }
+
+    - &Auteur17 !!models.Author
+         fullname:
+               name:          Raynal 
+               firstname:     Patrick
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur17
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *NeoPolar, percentage: 50 }
+
+    - &Auteur18 !!models.Author
+         fullname:
+               name:           DOA
+               firstname:     
+         score:
+               bestseller:    -10
+               classical:     -30
+               ico:           40
+               hard:          35
+               author:        *Auteur18
+         categories:
+            - {category: *Noir, percentage: 33 }
+            - {category: *NeoPolar, percentage: 33 }
+            - {category: *NeoPolarAnti, percentage: 34 }
+
+    - &Auteur19 !!models.Author
+         fullname:
+               name:          Ferey 
+               firstname:     Caryl
+         score:
+               bestseller:    0
+               classical:     -30
+               ico:           30
+               hard:          40
+               author:        *Auteur19
+         categories:
+            - {category: *Societal, percentage: 100 }
+
+    - &Auteur20 !!models.Author
+         fullname:
+               name:          Westlake 
+               firstname:     Donald
+         score:
+               bestseller:    20
+               classical:     20
+               ico:           0
+               hard:          20
+               author:        *Auteur20
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *Humoristique, percentage: 50 }
+
+    - &Auteur21 !!models.Author
+         fullname:
+               name:          Ellroy 
+               firstname:     James
+         score:
+               bestseller:    50
+               classical:     30
+               ico:           45
+               hard:          10
+               author:        *Auteur21
+         categories:
+            - {category: *Noir, percentage: 80 }
+            - {category: *HardBoiled, percentage: 20 }
+
+    - &Auteur22 !!models.Author
+         fullname:
+               name:          Hammett 
+               firstname:     Dashiell
+         score:
+               bestseller:    20
+               classical:     50
+               ico:           50
+               hard:          0
+               author:        *Auteur22
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur23 !!models.Author
+         fullname:
+               name:          John Daly
+               firstname:     Carroll
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur23
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur24 !!models.Author
+         fullname:
+               name:          Riley Burnett
+               firstname:     William
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur24
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur25 !!models.Author
+         fullname:
+               name:          Latimer 
+               firstname:     Jonathan
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur25
+         categories:
+            - {category: *HardBoiled, percentage: 70 }
+            - {category: *Humoristique, percentage: 30 }
+
+    - &Auteur26 !!models.Author
+         fullname:
+               name:          Chandler 
+               firstname:     Raymond
+         score:
+               bestseller:    20
+               classical:     50
+               ico:           50
+               hard:          0
+               author:        *Auteur26
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur27 !!models.Author
+         fullname:
+               name:          Fast 
+               firstname:     Howard
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur27
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur28 !!models.Author
+         fullname:
+               name:          Macdonald 
+               firstname:     Ross
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur28
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur29 !!models.Author
+         fullname:
+               name:          Thompson 
+               firstname:     Jim
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur29
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur30 !!models.Author
+         fullname:
+               name:          Himes 
+               firstname:     Chester
+         score:
+               bestseller:    0
+               classical:     20
+               ico:           30
+               hard:          -10
+               author:        *Auteur30
+         categories:
+            - {category: *Societal, percentage: 40 }
+            - {category: *HardBoiled, percentage: 60 }
+
+    - &Auteur31 !!models.Author
+         fullname:
+               name:          P. McGivern
+               firstname:     William
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur31
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur32 !!models.Author
+         fullname:
+               name:          Mallet 
+               firstname:     Léo
+         score:
+               bestseller:    20
+               classical:     30
+               ico:           20
+               hard:          10
+               author:        *Auteur32
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur33 !!models.Author
+         fullname:
+               name:          Arjouni 
+               firstname:     Jakob
+         score:
+               bestseller:    -10
+               classical:     -30
+               ico:           20
+               hard:          30
+               author:        *Auteur33
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur34 !!models.Author
+         fullname:
+               name:          Christie 
+               firstname:     Agatha
+         score:
+               bestseller:    50
+               classical:     50
+               ico:           0
+               hard:          -50
+               author:        *Auteur34
+         categories:
+            - {category: *Whodunit, percentage: 60 }
+            - {category: *Cozy, percentage: 40 }
+
+    - &Auteur35 !!models.Author
+         fullname:
+               name:          L. Sayers
+               firstname:     Dorothy
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur35
+         categories:
+            - {category: *Whodunit, percentage: 100 }
+
+    - &Auteur36 !!models.Author
+         fullname:
+               name:          Brett 
+               firstname:     Simon
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur36
+         categories:
+            - {category: *Whodunit, percentage: 100 }
+
+    - &Auteur37 !!models.Author
+         fullname:
+               name:          Sladek 
+               firstname:     John
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur37
+         categories:
+            - {category: *Whodunit, percentage: 100 }
+
+    - &Auteur38 !!models.Author
+         fullname:
+               name:          Austin Freeman
+               firstname:     R.
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur38
+         categories:
+            - {category: *Whodunit, percentage: 100 }
+
+    - &Auteur39 !!models.Author
+         fullname:
+               name:          o'donohue 
+               firstname:     Clare
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur39
+         categories:
+            - {category: *Cozy, percentage: 100 }
+
+    - &Auteur40 !!models.Author
+         fullname:
+               name:          Evanovich 
+               firstname:     Janet
+         score:
+               bestseller:    30
+               classical:     5
+               ico:           -30
+               hard:          -30
+               author:        *Auteur40
+         categories:
+            - {category: *Cozy, percentage: 100 }
+
+    - &Auteur41 !!models.Author
+         fullname:
+               name:          Cabot 
+               firstname:     Meg
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur41
+         categories:
+            - {category: *Cozy, percentage: 100 }
+
+    - &Auteur42 !!models.Author
+         fullname:
+               name:          Kiely 
+               firstname:     Tracy
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur42
+         categories:
+            - {category: *Cozy, percentage: 100 }
+
+    - &Auteur43 !!models.Author
+         fullname:
+               name:          Beaton 
+               firstname:     MC
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur43
+         categories:
+            - {category: *Cozy, percentage: 100 }
+
+    - &Auteur44 !!models.Author
+         fullname:
+               name:          Greene 
+               firstname:     Graham
+         score:
+               bestseller:    10
+               classical:     45
+               ico:           10
+               hard:          0
+               author:        *Auteur44
+         categories:
+            - {category: *Espionnage, percentage: 100 }
+
+    - &Auteur45 !!models.Author
+         fullname:
+               name:          Fleming 
+               firstname:     Ian
+         score:
+               bestseller:    50
+               classical:     50
+               ico:           0
+               hard:          10
+               author:        *Auteur45
+         categories:
+            - {category: *Espionnage, percentage: 100 }
+
+    - &Auteur46 !!models.Author
+         fullname:
+               name:          Deighton 
+               firstname:     Len
+         score:
+               bestseller:    10
+               classical:     -10
+               ico:           30
+               hard:          10
+               author:        *Auteur46
+         categories:
+            - {category: *Espionnage, percentage: 100 }
+
+    - &Auteur47 !!models.Author
+         fullname:
+               name:          le Carré
+               firstname:     John
+         score:
+               bestseller:    30
+               classical:     10
+               ico:           30
+               hard:          -10
+               author:        *Auteur47
+         categories:
+            - {category: *Espionnage, percentage: 100 }
+
+    - &Auteur48 !!models.Author
+         fullname:
+               name:          Nord 
+               firstname:     Pierre
+         score:
+               bestseller:    -10
+               classical:     30
+               ico:           50
+               hard:          0
+               author:        *Auteur48
+         categories:
+            - {category: *Espionnage, percentage: 100 }
+
+    - &Auteur49 !!models.Author
+         fullname:
+               name:          Volkoff 
+               firstname:     Vladimir
+         score:
+               bestseller:    10
+               classical:     20
+               ico:           10
+               hard:          -20
+               author:        *Auteur49
+         categories:
+            - {category: *Espionnage, percentage: 100 }
+
+    - &Auteur50 !!models.Author
+         fullname:
+               name:          de Villiers
+               firstname:     Gérard
+         score:
+               bestseller:    30
+               classical:     20
+               ico:           -30
+               hard:          30
+               author:        *Auteur50
+         categories:
+            - {category: *Espionnage, percentage: 70 }
+            - {category: *Humoristique, percentage: 30 }
+
+    - &Auteur51 !!models.Author
+         fullname:
+               name:          Bruce 
+               firstname:     Jean
+         score:
+               bestseller:    20
+               classical:     40
+               ico:           0
+               hard:          10
+               author:        *Auteur51
+         categories:
+            - {category: *Espionnage, percentage: 100 }
+
+    - &Auteur52 !!models.Author
+         fullname:
+               name:          Baldacci 
+               firstname:     David
+         score:
+               bestseller:    30
+               classical:     10
+               ico:           10
+               hard:          10
+               author:        *Auteur52
+         categories:
+            - {category: *Politique, percentage: 100 }
+
+    - &Auteur53 !!models.Author
+         fullname:
+               name:          Greene 
+               firstname:     Graham
+         score:
+               bestseller:    20
+               classical:     40
+               ico:           30
+               hard:          0
+               author:        *Auteur53
+         categories:
+            - {category: *Espionnage, percentage: 80 }
+
+    - &Auteur54 !!models.Author
+         fullname:
+               name:          Ludlum 
+               firstname:     Robert
+         score:
+               bestseller:    40
+               classical:     10
+               ico:           -10
+               hard:          -10
+               author:        *Auteur54
+         categories:
+            - {category: *Army, percentage: 100 }
+
+    - &Auteur55 !!models.Author
+         fullname:
+               name:          Clancy 
+               firstname:     Tom
+         score:
+               bestseller:    40
+               classical:     10
+               ico:           30
+               hard:          0
+               author:        *Auteur55
+         categories:
+            - {category: *Espionnage, percentage: 40 }
+            - {category: *Army, percentage: 60 }
+
+    - &Auteur56 !!models.Author
+         fullname:
+               name:          Ecco 
+               firstname:     Umberto
+         score:
+               bestseller:    20
+               classical:     10
+               ico:           0
+               hard:          -10
+               author:        *Auteur56
+         categories:
+            - {category: *Esoterique, percentage: 100 }
+
+    - &Auteur57 !!models.Author
+         fullname:
+               name:          Brown 
+               firstname:     Dan
+         score:
+               bestseller:    50
+               classical:     -20
+               ico:           -20
+               hard:          -40
+               author:        *Auteur57
+         categories:
+            - {category: *Esoterique, percentage: 100 }
+
+    - &Auteur58 !!models.Author
+         fullname:
+               name:          Giacometti-Raven
+               firstname:     
+         score:
+               bestseller:    20
+               classical:     0
+               ico:           20
+               hard:          -10
+               author:        *Auteur58
+         categories:
+            - {category: *Esoterique, percentage: 100 }
+
+    - &Auteur59 !!models.Author
+         fullname:
+               name:          Loevenbruck*
+               firstname:     
+         score:
+               bestseller:    20
+               classical:     -20
+               ico:           0
+               hard:          0
+               author:        *Auteur59
+         categories:
+            - {category: *Technologique, percentage: 20 }
+            - {category: *Procedural, percentage: 20 }
+            - {category: *Esoterique, percentage: 40 }
+
+    - &Auteur60 !!models.Author
+         fullname:
+               name:          Berry 
+               firstname:     Steve
+         score:
+               bestseller:    30
+               classical:     -10
+               ico:           0
+               hard:          -20
+               author:        *Auteur60
+         categories:
+
+    - &Auteur61 !!models.Author
+         fullname:
+               name:          Neville 
+               firstname:     Katherine
+         score:
+               bestseller:    30
+               classical:     -10
+               ico:           0
+               hard:          -20
+               author:        *Auteur61
+         categories:
+            - {category: *Esoterique, percentage: 100 }
+
+    - &Auteur62 !!models.Author
+         fullname:
+               name:          Japrisot 
+               firstname:     Sébastien
+         score:
+               bestseller:    10
+               classical:     20
+               ico:           10
+               hard:          10
+               author:        *Auteur62
+         categories:
+            - {category: *France, percentage: 100 }
+
+    - &Auteur63 !!models.Author
+         fullname:
+               name:          Musso* 
+               firstname:     Valentin
+         score:
+               bestseller:    10
+               classical:     -40
+               ico:           -20
+               hard:          5
+               author:        *Auteur63
+         categories:
+            - {category: *Serial, percentage: 70 }
+            - {category: *France, percentage: 30 }
+
+    - &Auteur64 !!models.Author
+         fullname:
+               name:          Izner 
+               firstname:     Claude
+         score:
+               bestseller:    10
+               classical:     20
+               ico:           0
+               hard:          0
+               author:        *Auteur64
+         categories:
+            - {category: *France, percentage: 100 }
+
+    - &Auteur65 !!models.Author
+         fullname:
+               name:          Neirynck 
+               firstname:     Jacques
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur65
+         categories:
+            - {category: *France, percentage: 100 }
+
+    - &Auteur66 !!models.Author
+         fullname:
+               name:          Abecassis 
+               firstname:     Eliette
+         score:
+               bestseller:    10
+               classical:     0
+               ico:           0
+               hard:          0
+               author:        *Auteur66
+         categories:
+            - {category: *Esoterique, percentage: 100 }
+
+    - &Auteur67 !!models.Author
+         fullname:
+               name:          Perry 
+               firstname:     Anne
+         score:
+               bestseller:    20
+               classical:     0
+               ico:           -10
+               hard:          -10
+               author:        *Auteur67
+         categories:
+            - {category: *Angleterre, percentage: 100 }
+
+    - &Auteur68 !!models.Author
+         fullname:
+               name:          Brandreth 
+               firstname:     Gyles
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur68
+         categories:
+            - {category: *Angleterre, percentage: 100 }
+
+    - &Auteur69 !!models.Author
+         fullname:
+               name:          Carr 
+               firstname:     Caleb
+         score:
+               bestseller:    10
+               classical:     -10
+               ico:           10
+               hard:          10
+               author:        *Auteur69
+         categories:
+            - {category: *Etats-Unis, percentage: 100 }
+
+    - &Auteur70 !!models.Author
+         fullname:
+               name:          Connelly 
+               firstname:     Michael
+         score:
+               bestseller:    30
+               classical:     0
+               ico:           10
+               hard:          -20
+               author:        *Auteur70
+         categories:
+            - {category: *Serial, percentage: 20 }
+            - {category: *Judiciaire, percentage: 20 }
+            - {category: *Procedural, percentage: 30 }
+            - {category: *HardBoiled, percentage: 30 }
+
+    - &Auteur71 !!models.Author
+         fullname:
+               name:          Deaver 
+               firstname:     Jeffery
+         score:
+               bestseller:    30
+               classical:     0
+               ico:           10
+               hard:          -10
+               author:        *Auteur71
+         categories:
+            - {category: *Serial, percentage: 60 }
+            - {category: *Procedural, percentage: 40 }
+
+    - &Auteur72 !!models.Author
+         fullname:
+               name:          North Patterson
+               firstname:     Richard
+         score:
+               bestseller:    10
+               classical:     10
+               ico:           30
+               hard:          -10
+               author:        *Auteur72
+         categories:
+            - {category: *Judiciaire, percentage: 50 }
+
+    - &Auteur73 !!models.Author
+         fullname:
+               name:          Preston et
+               firstname:     Douglas
+         score:
+               bestseller:    20
+               classical:     -20
+               ico:           0
+               hard:          -20
+               author:        *Auteur73
+         categories:
+            - {category: *Serial, percentage: 20 }
+            - {category: *Suspense, percentage: 20 }
+            - {category: *Procedural, percentage: 60 }
+
+    - &Auteur74 !!models.Author
+         fullname:
+               name:          Coben 
+               firstname:     Harlan
+         score:
+               bestseller:    20
+               classical:     -10
+               ico:           -10
+               hard:          -10
+               author:        *Auteur74
+         categories:
+            - {category: *Suspense, percentage: 100 }
+
+    - &Auteur75 !!models.Author
+         fullname:
+               name:          Grangé 
+               firstname:     Jean-Christophe
+         score:
+               bestseller:    30
+               classical:     10
+               ico:           0
+               hard:          0
+               author:        *Auteur75
+         categories:
+            - {category: *Serial, percentage: 40 }
+            - {category: *Suspense, percentage: 20 }
+            - {category: *Procedural, percentage: 40 }
+
+    - &Auteur76 !!models.Author
+         fullname:
+               name:          Mankell 
+               firstname:     Henning
+         score:
+               bestseller:    20
+               classical:     0
+               ico:           0
+               hard:          -10
+               author:        *Auteur76
+         categories:
+            - {category: *Serial, percentage: 30 }
+            - {category: *Procedural, percentage: 70 }
+
+    - &Auteur77 !!models.Author
+         fullname:
+               name:          Finder 
+               firstname:     Joseph
+         score:
+               bestseller:    20
+               classical:     -10
+               ico:           10
+               hard:          10
+               author:        *Auteur77
+         categories:
+            - {category: *Business, percentage: 50 }
+            - {category: *Technologique, percentage: 30 }
+            - {category: *Suspense, percentage: 20 }
+
+    - &Auteur78 !!models.Author
+         fullname:
+               name:          Child 
+               firstname:     Lee
+         score:
+               bestseller:    40
+               classical:     -30
+               ico:           -10
+               hard:          10
+               author:        *Auteur78
+         categories:
+            - {category: *HardBoiled, percentage: 100 }
+
+    - &Auteur79 !!models.Author
+         fullname:
+               name:          Barclay 
+               firstname:     Linwood
+         score:
+               bestseller:    20
+               classical:     -10
+               ico:           10
+               hard:          10
+               author:        *Auteur79
+         categories:
+            - {category: *Suspense, percentage: 100 }
+
+    - &Auteur80 !!models.Author
+         fullname:
+               name:          Gerritsen. 
+               firstname:     Tess
+         score:
+               bestseller:    10
+               classical:     0
+               ico:           10
+               hard:          0
+               author:        *Auteur80
+         categories:
+            - {category: *Technologique, percentage: 20 }
+            - {category: *Medical, percentage: 60 }
+            - {category: *Procedural, percentage: 20 }
+
+    - &Auteur81 !!models.Author
+         fullname:
+               name:          Freeman 
+               firstname:     Brian
+         score:
+               bestseller:    -10
+               classical:     0
+               ico:           10
+               hard:          -20
+               author:        *Auteur81
+         categories:
+            - {category: *Suspense, percentage: 34 }
+            - {category: *Procedural, percentage: 33 }
+            - {category: *Whodunit, percentage: 33 }
+
+    - &Auteur82 !!models.Author
+         fullname:
+               name:          Rankin 
+               firstname:     Ian
+         score:
+               bestseller:    10
+               classical:     0
+               ico:           20
+               hard:          10
+               author:        *Auteur82
+         categories:
+            - {category: *Suspense, percentage: 30 }
+            - {category: *Procedural, percentage: 40 }
+            - {category: *HardBoiled, percentage: 30 }
+
+    - &Auteur83 !!models.Author
+         fullname:
+               name:          Leon 
+               firstname:     Donna
+         score:
+               bestseller:    20
+               classical:     10
+               ico:           -10
+               hard:          20
+               author:        *Auteur83
+         categories:
+            - {category: *Procedural, percentage: 100 }
+
+    - &Auteur84 !!models.Author
+         fullname:
+               name:          Dibdin 
+               firstname:     Michael
+         score:
+               bestseller:    10
+               classical:     0
+               ico:           0
+               hard:          -10
+               author:        *Auteur84
+         categories:
+            - {category: *Procedural, percentage: 100 }
+
+    - &Auteur85 !!models.Author
+         fullname:
+               name:          James 
+               firstname:     PD
+         score:
+               bestseller:    10
+               classical:     40
+               ico:           -10
+               hard:          -20
+               author:        *Auteur85
+         categories:
+            - {category: *Enquete, percentage: 100 }
+
+    - &Auteur86 !!models.Author
+         fullname:
+               name:          Katzenbach 
+               firstname:     John
+         score:
+               bestseller:    10
+               classical:     10
+               ico:           30
+               hard:          0
+               author:        *Auteur86
+         categories:
+            - {category: *Judiciaire, percentage: 20 }
+            - {category: *Suspense, percentage: 80 }
+
+    - &Auteur87 !!models.Author
+         fullname:
+               name:          Lemaitre 
+               firstname:     Pierre
+         score:
+               bestseller:    10
+               classical:     -10
+               ico:           20
+               hard:          10
+               author:        *Auteur87
+         categories:
+            - {category: *Serial, percentage: 10 }
+            - {category: *Psychologique, percentage: 20 }
+            - {category: *Suspense, percentage: 50 }
+            - {category: *Noir, percentage: 20 }
+
+    - &Auteur88 !!models.Author
+         fullname:
+               name:          Giébel 
+               firstname:     Karine
+         score:
+               bestseller:    10
+               classical:     -20
+               ico:           20
+               hard:          0
+               author:        *Auteur88
+         categories:
+            - {category: *Serial, percentage: 40 }
+            - {category: *Psychologique, percentage: 30 }
+            - {category: *Noir, percentage: 30 }
+
+    - &Auteur89 !!models.Author
+         fullname:
+               name:          Thilliez 
+               firstname:     Franck
+         score:
+               bestseller:    25
+               classical:     0
+               ico:           5
+               hard:          0
+               author:        *Auteur89
+         categories:
+            - {category: *Serial, percentage: 40 }
+            - {category: *Psychologique, percentage: 10 }
+            - {category: *Technologique, percentage: 20 }
+            - {category: *Procedural, percentage: 30 }
+
+    - &Auteur90 !!models.Author
+         fullname:
+               name:          Chattam 
+               firstname:     Maxime
+         score:
+               bestseller:    35
+               classical:     0
+               ico:           10
+               hard:          0
+               author:        *Auteur90
+         categories:
+            - {category: *Serial, percentage: 40 }
+            - {category: *Procedural, percentage: 40 }
+            - {category: *France, percentage: 20 }
+
+    - &Auteur91 !!models.Author
+         fullname:
+               name:          Cornwell 
+               firstname:     Patricia
+         score:
+               bestseller:    30
+               classical:     10
+               ico:           20
+               hard:          -20
+               author:        *Auteur91
+         categories:
+            - {category: *Procedural, percentage: 100 }
+
+    - &Auteur92 !!models.Author
+         fullname:
+               name:          Ellory 
+               firstname:     RJ
+         score:
+               bestseller:    20
+               classical:     0
+               ico:           20
+               hard:          10
+               author:        *Auteur92
+         categories:
+            - {category: *Serial, percentage: 20 }
+            - {category: *Suspense, percentage: 20 }
+            - {category: *Procedural, percentage: 20 }
+            - {category: *Noir, percentage: 40 }
+
+    - &Auteur93 !!models.Author
+         fullname:
+               name:          Bauwen 
+               firstname:     Patrick
+         score:
+               bestseller:    5
+               classical:     0
+               ico:           0
+               hard:          0
+               author:        *Auteur93
+         categories:
+            - {category: *Serial, percentage: 20 }
+            - {category: *Psychologique, percentage: 40 }
+            - {category: *Suspense, percentage: 40 }
+
+    - &Auteur94 !!models.Author
+         fullname:
+               name:          Unger 
+               firstname:     Lisa
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur94
+         categories:
+
+    - &Auteur95 !!models.Author
+         fullname:
+               name:          Gardner 
+               firstname:     Lisa
+         score:
+               bestseller:    -50
+               classical:     -50
+               ico:           -50
+               hard:          -50
+               author:        *Auteur95
+         categories:
+
+    - &Auteur96 !!models.Author
+         fullname:
+               name:          Friedman 
+               firstname:     Kinky
+         score:
+               bestseller:    5
+               classical:     -20
+               ico:           20
+               hard:          30
+               author:        *Auteur96
+         categories:
+            - {category: *Noir, percentage: 30 }
+            - {category: *HardBoiled, percentage: 20 }
+            - {category: *Humoristique, percentage: 50 }
+
+    - &Auteur97 !!models.Author
+         fullname:
+               name:          R. Lansdale
+               firstname:     Joe
+         score:
+               bestseller:    5
+               classical:     -20
+               ico:           20
+               hard:          30
+               author:        *Auteur97
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *Humoristique, percentage: 50 }
+
+    - &Auteur98 !!models.Author
+         fullname:
+               name:          Salem 
+               firstname:     Carlos
+         score:
+               bestseller:    -10
+               classical:     -20
+               ico:           20
+               hard:          45
+               author:        *Auteur98
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *Humoristique, percentage: 50 }
+
+    - &Auteur99 !!models.Author
+         fullname:
+               name:          Levinson 
+               firstname:     Ian
+         score:
+               bestseller:    0
+               classical:     -10
+               ico:           15
+               hard:          30
+               author:        *Auteur99
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *Humoristique, percentage: 50 }
+
+    - &Auteur100 !!models.Author
+         fullname:
+               name:          Verasani 
+               firstname:     Grazia
+         score:
+               bestseller:    -20
+               classical:     -20
+               ico:           10
+               hard:          20
+               author:        *Auteur100
+         categories:
+            - {category: *Noir, percentage: 40 }
+            - {category: *Societal, percentage: 40 }
+            - {category: *Humoristique, percentage: 20 }
+
+    - &Auteur101 !!models.Author
+         fullname:
+               name:          Kassak 
+               firstname:     Fred
+         score:
+               bestseller:    -20
+               classical:     -10
+               ico:           30
+               hard:          10
+               author:        *Auteur101
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *Espionnage, percentage: 30 }
+            - {category: *Humoristique, percentage: 20 }
+
+    - &Auteur102 !!models.Author
+         fullname:
+               name:          Goodis 
+               firstname:     David
+         score:
+               bestseller:    0
+               classical:     30
+               ico:           40
+               hard:          0
+               author:        *Auteur102
+         categories:
+            - {category: *Noir, percentage: 100 }
+
+    - &Auteur103 !!models.Author
+         fullname:
+               name:          Queen 
+               firstname:     Ellery
+         score:
+               bestseller:    -10
+               classical:     20
+               ico:           30
+               hard:          -10
+               author:        *Auteur103
+         categories:
+            - {category: *Noir, percentage: 20 }
+            - {category: *Whodunit, percentage: 80 }
+
+    - &Auteur104 !!models.Author
+         fullname:
+               name:          Pérez-Reverte 
+               firstname:     Arturo
+         score:
+               bestseller:    20
+               classical:     0
+               ico:           0
+               hard:          0
+               author:        *Auteur104
+         categories:
+            - {category: *Historique, percentage: 100 }
+
+    - &Auteur105 !!models.Author
+         fullname:
+               name:          McBain 
+               firstname:     Ed
+         score:
+               bestseller:    5
+               classical:     5
+               ico:           20
+               hard:          -10
+               author:        *Auteur105
+         categories:
+            - {category: *Procedural, percentage: 70 }
+            - {category: *Noir, percentage: 30 }
+
+    - &Auteur106 !!models.Author
+         fullname:
+               name:          Izzo 
+               firstname:     jean-claude
+         score:
+               bestseller:    -10
+               classical:     -10
+               ico:           30
+               hard:          0
+               author:        *Auteur106
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *Societal, percentage: 50 }
+
+    - &Auteur107 !!models.Author
+         fullname:
+               name:          Stevens 
+               firstname:     Shane
+         score:
+               bestseller:    10
+               classical:     -10
+               ico:           30
+               hard:          0
+               author:        *Auteur107
+         categories:
+            - {category: *Serial, percentage: 100 }
+
+    - &Auteur108 !!models.Author
+         fullname:
+               name:          Hayder 
+               firstname:     Mo
+         score:
+               bestseller:    10
+               classical:     0
+               ico:           20
+               hard:          10
+               author:        *Auteur108
+         categories:
+            - {category: *Serial, percentage: 100 }
+
+    - &Auteur109 !!models.Author
+         fullname:
+               name:          Nesbo 
+               firstname:     Jo
+         score:
+               bestseller:    15
+               classical:     -10
+               ico:           20
+               hard:          5
+               author:        *Auteur109
+         categories:
+            - {category: *Serial, percentage: 70 }
+            - {category: *HardBoiled, percentage: 30 }
+
+    - &Auteur110 !!models.Author
+         fullname:
+               name:          Harrisson 
+               firstname:     Colin
+         score:
+               bestseller:    10
+               classical:     -20
+               ico:           10
+               hard:          10
+               author:        *Auteur110
+         categories:
+            - {category: *Psychologique, percentage: 30 }
+            - {category: *Suspense, percentage: 30 }
+            - {category: *Societal, percentage: 40 }
+
+    - &Auteur111 !!models.Author
+         fullname:
+               name:          Cook 
+               firstname:     Robin
+         score:
+               bestseller:    30
+               classical:     0
+               ico:           5
+               hard:          0
+               author:        *Auteur111
+         categories:
+            - {category: *Medical, percentage: 100 }
+
+    - &Auteur112 !!models.Author
+         fullname:
+               name:          Lieberman 
+               firstname:     Herbert
+         score:
+               bestseller:    5
+               classical:     10
+               ico:           20
+               hard:          -10
+               author:        *Auteur112
+         categories:
+            - {category: *Procedural, percentage: 40 }
+            - {category: *Noir, percentage: 60 }
+
+    - &Auteur113 !!models.Author
+         fullname:
+               name:          Behm 
+               firstname:     Marc
+         score:
+               bestseller:    10
+               classical:     10
+               ico:           20
+               hard:          0
+               author:        *Auteur113
+         categories:
+            - {category: *Noir, percentage: 100 }
+
+    - &Auteur114 !!models.Author
+         fullname:
+               name:          Bunker 
+               firstname:     Edward
+         score:
+               bestseller:    5
+               classical:     10
+               ico:           20
+               hard:          -10
+               author:        *Auteur114
+         categories:
+            - {category: *Noir, percentage: 100 }
+
+    - &Auteur115 !!models.Author
+         fullname:
+               name:          Ignacio Taibo
+               firstname:     Paco
+         score:
+               bestseller:    -10
+               classical:     -10
+               ico:           30
+               hard:          10
+               author:        *Auteur115
+         categories:
+            - {category: *Noir, percentage: 100 }
+
+    - &Auteur116 !!models.Author
+         fullname:
+               name:          Bayer 
+               firstname:     William
+         score:
+               bestseller:    10
+               classical:     5
+               ico:           20
+               hard:          0
+               author:        *Auteur116
+         categories:
+            - {category: *Procedural, percentage: 40 }
+            - {category: *Noir, percentage: 50 }
+            - {category: *Espionnage, percentage: 10 }
+            - {category: *Enquete, percentage: 50 }
+
+    - &Auteur117 !!models.Author
+         fullname:
+               name:          Benacquista 
+               firstname:     Tonino
+         score:
+               bestseller:    15
+               classical:     10
+               ico:           20
+               hard:          10
+               author:        *Auteur117
+         categories:
+            - {category: *Psychologique, percentage: 20 }
+            - {category: *NeoPolar, percentage: 30 }
+
+    - &Auteur118 !!models.Author
+         fullname:
+               name:          Bruen 
+               firstname:     Ken
+         score:
+               bestseller:    -10
+               classical:     -20
+               ico:           20
+               hard:          0
+               author:        *Auteur118
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *HardBoiled, percentage: 50 }
+
+    - &Auteur119 !!models.Author
+         fullname:
+               name:          Block 
+               firstname:     Lawrence
+         score:
+               bestseller:    -10
+               classical:     -20
+               ico:           20
+               hard:          0
+               author:        *Auteur119
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *HardBoiled, percentage: 50 }
+
+    - &Auteur120 !!models.Author
+         fullname:
+               name:          M. Cain
+               firstname:     James
+         score:
+               bestseller:    10
+               classical:     10
+               ico:           20
+               hard:          0
+               author:        *Auteur120
+         categories:
+            - {category: *Noir, percentage: 100 }
+
+    - &Auteur121 !!models.Author
+         fullname:
+               name:          Cavalier 
+               firstname:     Pierre
+         score:
+               bestseller:    -20
+               classical:     -20
+               ico:           20
+               hard:          20
+               author:        *Auteur121
+         categories:
+            - {category: *Surnaturel, percentage: 20 }
+            - {category: *Espionnage, percentage: 20 }
+            - {category: *Historique, percentage: 60 }
+
+    - &Auteur122 !!models.Author
+         fullname:
+               name:          Chesbro 
+               firstname:     Georges
+         score:
+               bestseller:    -10
+               classical:     -20
+               ico:           30
+               hard:          40
+               author:        *Auteur122
+         categories:
+            - {category: *Surnaturel, percentage: 34 }
+            - {category: *Psychologique, percentage: 33 }
+            - {category: *Noir, percentage: 33 }
+
+    - &Auteur123 !!models.Author
+         fullname:
+               name:          Wilkie Collins
+               firstname:     William
+         score:
+               bestseller:    0
+               classical:     40
+               ico:           20
+               hard:          -10
+               author:        *Auteur123
+         categories:
+            - {category: *Angleterre, percentage: 100 }
+
+    - &Auteur124 !!models.Author
+         fullname:
+               name:          Cook (BIS
+               firstname:     Robin
+         score:
+               bestseller:    10
+               classical:     10
+               ico:           20
+               hard:          -20
+               author:        *Auteur124
+         categories:
+            - {category: *Noir, percentage: 100 }
+
+    - &Auteur125 !!models.Author
+         fullname:
+               name:          Crais 
+               firstname:     Robert
+         score:
+               bestseller:    20
+               classical:     -10
+               ico:           -10
+               hard:          -20
+               author:        *Auteur125
+         categories:
+            - {category: *Suspense, percentage: 30 }
+            - {category: *Procedural, percentage: 50 }
+            - {category: *Humoristique, percentage: 20 }
+
+    - &Auteur126 !!models.Author
+         fullname:
+               name:          Crews 
+               firstname:     Harry
+         score:
+               bestseller:    -10
+               classical:     -10
+               ico:           30
+               hard:          10
+               author:        *Auteur126
+         categories:
+            - {category: *Noir, percentage: 80 }
+            - {category: *Societal, percentage: 20 }
+
+    - &Auteur127 !!models.Author
+         fullname:
+               name:          Crumley 
+               firstname:     James
+         score:
+               bestseller:    -10
+               classical:     -10
+               ico:           30
+               hard:          0
+               author:        *Auteur127
+         categories:
+            - {category: *Noir, percentage: 20 }
+            - {category: *Societal, percentage: 80 }
+
+    - &Auteur128 !!models.Author
+         fullname:
+               name:          (Frédéric Dard)
+               firstname:     San-Antonio
+         score:
+               bestseller:    20
+               classical:     40
+               ico:           0
+               hard:          20
+               author:        *Auteur128
+         categories:
+            - {category: *Humoristique, percentage: 100 }
+
+    - &Auteur129 !!models.Author
+         fullname:
+               name:          Harris 
+               firstname:     Thomas
+         score:
+               bestseller:    30
+               classical:     30
+               ico:           5
+               hard:          -10
+               author:        *Auteur129
+         categories:
+            - {category: *Serial, percentage: 80 }
+            - {category: *Procedural, percentage: 20 }
+
+    - &Auteur130 !!models.Author
+         fullname:
+               name:          Harvey 
+               firstname:     John
+         score:
+               bestseller:    5
+               classical:     -10
+               ico:           0
+               hard:          0
+               author:        *Auteur130
+         categories:
+            - {category: *Psychologique, percentage: 30 }
+            - {category: *Suspense, percentage: 30 }
+            - {category: *Enquete, percentage: 30 }
+
+    - &Auteur131 !!models.Author
+         fullname:
+               name:          Héléna 
+               firstname:     André
+         score:
+               bestseller:    -10
+               classical:     10
+               ico:           30
+               hard:          -10
+               author:        *Auteur131
+         categories:
+            - {category: *Noir, percentage: 100 }
+
+    - &Auteur132 !!models.Author
+         fullname:
+               name:          Hunter 
+               firstname:     Stephen
+         score:
+               bestseller:    0
+               classical:     -10
+               ico:           20
+               hard:          0
+               author:        *Auteur132
+         categories:
+            - {category: *Thriller, percentage: 50 }
+            - {category: *Suspense, percentage: 40 }
+            - {category: *Army, percentage: 10 }
+
+    - &Auteur133 !!models.Author
+         fullname:
+               name:          James 
+               firstname:     Peter
+         score:
+               bestseller:    10
+               classical:     -20
+               ico:           10
+               hard:          0
+               author:        *Auteur133
+         categories:
+            - {category: *Psychologique, percentage: 30 }
+            - {category: *Suspense, percentage: 40 }
+            - {category: *Procedural, percentage: 30 }
+
+    - &Auteur134 !!models.Author
+         fullname:
+               name:          Kerr 
+               firstname:     Philip
+         score:
+               bestseller:    10
+               classical:     0
+               ico:           0
+               hard:          10
+               author:        *Auteur134
+         categories:
+            - {category: *Enquete, percentage: 50 }
+            - {category: *Historique, percentage: 50 }
+
+    - &Auteur135 !!models.Author
+         fullname:
+               name:          Keyes 
+               firstname:     Daniel
+         score:
+               bestseller:    -10
+               classical:     -10
+               ico:           10
+               hard:          30
+               author:        *Auteur135
+         categories:
+            - {category: *Psychologique, percentage: 100 }
+
+    - &Auteur136 !!models.Author
+         fullname:
+               name:          Larsson 
+               firstname:     Stieg
+         score:
+               bestseller:    40
+               classical:     5
+               ico:           -20
+               hard:          -10
+               author:        *Auteur136
+         categories:
+            - {category: *Thriller, percentage: 40 }
+            - {category: *Societal, percentage: 20 }
+            - {category: *Enquete, percentage: 40 }
+
+    - &Auteur137 !!models.Author
+         fullname:
+               name:          Le Roy
+               firstname:     Philip
+         score:
+               bestseller:    -20
+               classical:     -20
+               ico:           10
+               hard:          -10
+               author:        *Auteur137
+         categories:
+            - {category: *Thriller, percentage: 100 }
+
+    - &Auteur138 !!models.Author
+         fullname:
+               name:          Lee Burke
+               firstname:     James
+         score:
+               bestseller:    10
+               classical:     -20
+               ico:           10
+               hard:          10
+               author:        *Auteur138
+         categories:
+            - {category: *Societal, percentage: 30 }
+            - {category: *Enquete, percentage: 70 }
+
+    - &Auteur139 !!models.Author
+         fullname:
+               name:          Leonard 
+               firstname:     Elomore
+         score:
+               bestseller:    10
+               classical:     20
+               ico:           20
+               hard:          30
+               author:        *Auteur139
+         categories:
+            - {category: *Thriller, percentage: 20 }
+            - {category: *Suspense, percentage: 20 }
+            - {category: *Noir, percentage: 30 }
+            - {category: *Humoristique, percentage: 30 }
+
+    - &Auteur140 !!models.Author
+         fullname:
+               name:          McDonald 
+               firstname:     Grégory
+         score:
+               bestseller:    0
+               classical:     0
+               ico:           10
+               hard:          0
+               author:        *Auteur140
+         categories:
+            - {category: *Noir, percentage: 50 }
+            - {category: *Enquete, percentage: 50 }
+
+    - &Auteur141 !!models.Author
+         fullname:
+               name:          Mork 
+               firstname:     Christian
+         score:
+               bestseller:    -20
+               classical:     -20
+               ico:           10
+               hard:          30
+               author:        *Auteur141
+         categories:
+            - {category: *Thriller, percentage: 20 }
+            - {category: *Serial, percentage: 20 }
+            - {category: *Surnaturel, percentage: 20 }
+            - {category: *Suspense, percentage: 20 }
+            - {category: *Enquete, percentage: 20 }
+
+    - &Auteur142 !!models.Author
+         fullname:
+               name:          Ornitz 
+               firstname:     Samuel
+         score:
+               bestseller:    0
+               classical:     30
+               ico:           30
+               hard:          -10
+               author:        *Auteur142
+         categories:
+            - {category: *Societal, percentage: 70 }
+            - {category: *Etats-Unis, percentage: 30 }
+
+    - &Auteur143 !!models.Author
+         fullname:
+               name:          P. Pelecanos
+               firstname:     George
+         score:
+               bestseller:    10
+               classical:     -20
+               ico:           20
+               hard:          5
+               author:        *Auteur143
+         categories:
+            - {category: *Thriller, percentage: 20 }
+            - {category: *Procedural, percentage: 20 }
+            - {category: *Societal, percentage: 60 }
+
+    - &Auteur144 !!models.Author
+         fullname:
+               name:          Peters 
+               firstname:     Ellis
+         score:
+               bestseller:    0
+               classical:     0
+               ico:           30
+               hard:          0
+               author:        *Auteur144
+         categories:
+            - {category: *Esoterique, percentage: 100 }
+
+    - &Auteur145 !!models.Author
+         fullname:
+               name:          Price 
+               firstname:     Richard
+         score:
+               bestseller:    0
+               classical:     0
+               ico:           30
+               hard:          0
+               author:        *Auteur145
+         categories:
+            - {category: *Noir, percentage: 20 }
+            - {category: *Societal, percentage: 80 }
+
+    - &Auteur146 !!models.Author
+         fullname:
+               name:          Roszak 
+               firstname:     Theodore
+         score:
+               bestseller:    0
+               classical:     0
+               ico:           30
+               hard:          10
+               author:        *Auteur146
+         categories:
+            - {category: *Psychologique, percentage: 40 }
+            - {category: *Suspense, percentage: 20 }
+            - {category: *Conspiration, percentage: 20 }
+            - {category: *Esoterique, percentage: 20 }
+
+    - &Auteur147 !!models.Author
+         fullname:
+               name:          Indridason 
+               firstname:     Arnaldur
+         score:
+               bestseller:    20
+               classical:     -10
+               ico:           0
+               hard:          10
+               author:        *Auteur147
+         categories:
+            - {category: *Procedural, percentage: 20 }
+            - {category: *Societal, percentage: 40 }
+            - {category: *Enquete, percentage: 20 }
+            - {category: *Rompol, percentage: 20 }
+
+    - &Auteur148 !!models.Author
+         fullname:
+               name:          Carlos Somoza
+               firstname:     José
+         score:
+               bestseller:    0
+               classical:     0
+               ico:           20
+               hard:          30
+               author:        *Auteur148
+         categories:
+            - {category: *Serial, percentage: 20 }
+            - {category: *Surnaturel, percentage: 40 }
+
+    - &Auteur149 !!models.Author
+         fullname:
+               name:          Summerscale 
+               firstname:     Kate
+         score:
+               bestseller:    -10
+               classical:     -10
+               ico:           10
+               hard:          0
+               author:        *Auteur149
+         categories:
+            - {category: *Angleterre, percentage: 100 }
+
+    - &Auteur150 !!models.Author
+         fullname:
+               name:          Trevanian
+               firstname:     
+         score:
+               bestseller:    -10
+               classical:     -20
+               ico:           20
+               hard:          30
+               author:        *Auteur150
+         categories:
+            - {category: *Thriller, percentage: 40 }
+            - {category: *Suspense, percentage: 30 }
+            - {category: *Humoristique, percentage: 30 }
+
+    - &Auteur151 !!models.Author
+         fullname:
+               name:          Upfield 
+               firstname:     Arthur
+         score:
+               bestseller:    -10
+               classical:     -30
+               ico:           20
+               hard:          40
+               author:        *Auteur151
+         categories:
+            - {category: *Enquete, percentage: 100 }
+
+    - &Auteur152 !!models.Author
+         fullname:
+               name:          Vargas 
+               firstname:     Fred
+         score:
+               bestseller:    30
+               classical:     0
+               ico:           20
+               hard:          30
+               author:        *Auteur152
+         categories:
+            - {category: *Rompol, percentage: 100 }
+
+    - &Auteur153 !!models.Author
+         fullname:
+               name:          Vilar 
+               firstname:     Jean-François
+         score:
+               bestseller:    -10
+               classical:     -30
+               ico:           30
+               hard:          30
+               author:        *Auteur153
+         categories:
+            - {category: *Thriller, percentage: 30 }
+            - {category: *Enquete, percentage: 70 }
+
+    - &Auteur154 !!models.Author
+         fullname:
+               name:          Winslow 
+               firstname:     Don
+         score:
+               bestseller:    10
+               classical:     -10
+               ico:           30
+               hard:          0
+               author:        *Auteur154
+         categories:
+            - {category: *Thriller, percentage: 40 }
+            - {category: *Espionnage, percentage: 60 }
+
+    - &Auteur155 !!models.Author
+         fullname:
+               name:          Fforde 
+               firstname:     Jasper
+         score:
+               bestseller:    10
+               classical:     -20
+               ico:           20
+               hard:          50
+               author:        *Auteur155
+         categories:
+            - {category: *Enquete, percentage: 60 }
+            - {category: *Humoristique, percentage: 40 }
+
+    - &Auteur156 !!models.Author
+         fullname:
+               name:          Caillot 
+               firstname:     Gilles
+         score:
+               bestseller:    -50
+               classical:     -30
+               ico:           20
+               hard:          0
+               author:        *Auteur156
+         categories:
+            - {category: *Serial, percentage: 100 }
+
+    - &Auteur157 !!models.Author
+         fullname:
+               name:          Terry 
+               firstname:     Laurent
+         score:
+               bestseller:    -50
+               classical:     -30
+               ico:           10
+               hard:          0
+               author:        *Auteur157
+         categories:
+            - {category: *Psychologique, percentage: 40 }
+            - {category: *Business, percentage: 20 }
+            - {category: *Technologique, percentage: 20 }
+            - {category: *Suspense, percentage: 20 }
+
+    - &Auteur158 !!models.Author
+         fullname:
+               name:          Scalese 
+               firstname:     Laurent
+         score:
+               bestseller:    0
+               classical:     0
+               ico:           10
+               hard:          0
+               author:        *Auteur158
+         categories:
+            - {category: *Thriller, percentage: 60 }
+            - {category: *Suspense, percentage: 20 }
+            - {category: *Procedural, percentage: 20 }
+
+    - &Auteur159 !!models.Author
+         fullname:
+               name:          Senécal 
+               firstname:     Patrick
+         score:
+               bestseller:    -30
+               classical:     -40
+               ico:           10
+               hard:          0
+               author:        *Auteur159
+         categories:
+            - {category: *Psychologique, percentage: 50 }
+            - {category: *Suspense, percentage: 50 }

@@ -1,0 +1,57 @@
+
+# BookCategories
+
+resonances:
+    - &Resonance1 !!models.Resonance
+        name:           Resonance1
+        description:    Res1
+
+    - &ResSerial !!models.Resonance
+        name:           Serial Killer
+        description:    Res2
+
+bookCategories:
+
+    - &Root !!models.BookCategory
+        name:           Root
+        type:           Real
+        description:    Root of root
+
+    - &Thriller !!models.BookCategory
+        name:           Thriller
+        type:           Real
+        description: |
+             Longue description
+             avec des retours à la ligne.
+        parent:         *Root
+
+    - &Serial !!models.BookCategory
+        name:           Serial
+        type:           Real
+        description:    Serial Killers
+        parent:         *Thriller
+        resonances:     [*ResSerial]
+
+    - &Psychologique !!models.BookCategory
+        name:           Psychologique
+        type:           Real
+        description:    Psycho
+        parent:         *Thriller
+
+    - &Judiciaire !!models.BookCategory
+        name:           Judiciaire
+        type:           Real
+        description:    Judiciaire
+        parent:         *Thriller
+
+    - &Noir !!models.BookCategory
+        name:           Noir
+        type:           Real
+        description:    Noir
+        parent:         *Thriller
+
+    - &NeoPolar !!models.BookCategory
+        name:           Neo Polar
+        type:           Real
+        description:    Neo Polar
+        parent:         *Noir

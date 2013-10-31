@@ -1,0 +1,108 @@
+
+# BookCategories
+
+resonances:
+    - &Resonance1 !!models.Resonance
+        name:           Resonance1
+        description:    Res1
+
+    - &ResSerial !!models.Resonance
+        name:           Serial Killer
+        description:    Res2
+
+bookCategories:
+    - &Root !!models.BookCategory
+        name:           Root
+        type:           Real
+        description:    Root of root
+
+    - &Thriller !!models.BookCategory
+        name:           Thriller
+        type:           Real
+        description: |
+             Longue description
+             avec des retours à la ligne.
+        parent:         *Root
+
+    - &Serial !!models.BookCategory
+        name:           Serial
+        type:           Real
+        description:    Serial Killers
+        parent:         *Thriller
+        resonances:     [*ResSerial]
+
+    - &Psychologique !!models.BookCategory
+        name:           Psychologique
+        type:           Real
+        description:    Psycho
+        parent:         *Thriller
+
+    - &Judiciaire !!models.BookCategory
+        name:           Judiciaire
+        type:           Real
+        description:    Judiciaire
+        parent:         *Thriller
+
+    - &Noir !!models.BookCategory
+        name:           Noir
+        type:           Real
+        description:    Noir
+        parent:         *Thriller
+
+    - &NeoPolar !!models.BookCategory
+        name:           Neo Polar
+        type:           Real
+        description:    Neo Polar
+        parent:         *Noir
+
+# Authors
+bookCategoryOwnership:
+    - &OwnerShip1_1 !!models.BookCategoryOwnership
+        category:             *Noir
+        percentage:           70
+
+    - &OwnerShip1_2 !!models.BookCategoryOwnership
+        category:             *Psychologique
+        percentage:           30
+
+    - &OwnerShip2 !!models.BookCategoryOwnership
+        category:             *Thriller
+        percentage:           100
+
+score:
+    - &BestSeller !!models.RecommendationScore
+        bestseller:           50
+        classical:            0
+        ico:                  0
+        hard:                 0
+
+    - &Classical !!models.RecommendationScore
+        bestseller:           0
+        classical:            50
+        ico:                  0
+        hard:                 0
+
+    - &Ico !!models.RecommendationScore
+        bestseller:           0
+        classical:            0
+        ico:                  50
+        hard:                 0
+
+alias:
+    - &KingAlias !!models.AuthorAlias
+        alias:                S King
+
+authors:
+    - &SKing !!models.Author
+        fullname:
+              name:        King
+              firstname:   Stephen
+        score:             *BestSeller
+        alias:             [*KingAlias]
+        categories:        [*OwnerShip1_1, *OwnerShip1_2]
+
+    - &FThilliez !!models.Author
+        fullname:
+              name:        Thilliez
+              firstname:   Franck
+        categories:        [*OwnerShip2]

@@ -4,7 +4,6 @@ import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.start;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import models.BookCategory;
 import org.junit.Before;
 import org.junit.Test;
 
-import play.Logger;
 import play.libs.Yaml;
 
 import com.avaje.ebean.Ebean;
@@ -41,7 +39,7 @@ public class ModelsTest {
 	
 	
 
-	@Test
+	/*@Test
     public void bookCategoryTestManualAddingAndRemove() {
 		// Nothing is supposed to exist
 		assertThat(BookCategory.findAll().size()).isEqualTo(0);
@@ -188,6 +186,6 @@ public class ModelsTest {
 		assertThat(categoryThriller.children.size()).isEqualTo(4);
 		BookCategory categoryNoir = BookCategory.findByName("Noir");
 		assertThat(categoryNoir.children.size()).isEqualTo(1);
-	}
+	}*/
 
 }

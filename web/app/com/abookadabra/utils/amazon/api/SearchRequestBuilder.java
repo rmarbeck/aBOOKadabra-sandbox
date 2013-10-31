@@ -110,6 +110,12 @@ public class SearchRequestBuilder extends RequestBuilder {
 		return setItem(AMAZON_TITLE_PARAM, title);
 	}
 
+	public SearchRequestReady forBrowseNode(int nodeId) {
+		if (nodeId >= BROWSE_NODE_MIN)
+			return setItem(AMAZON_BROWSENODE_PARAM, Integer.toString(nodeId));
+		return setItem(AMAZON_BROWSENODE_PARAM, BROWSE_NODE_DEFAULT);
+	}
+
 	private SearchRequestReady setItem(String key, String value) {
 		builtRequest.addParam(key, value);
 		return new SearchRequestReady();

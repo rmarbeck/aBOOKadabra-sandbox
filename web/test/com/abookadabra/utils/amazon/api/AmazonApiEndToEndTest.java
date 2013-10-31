@@ -83,7 +83,7 @@ public class AmazonApiEndToEndTest {
 		Request browseKnownToBeValidNode = BrowseNodeRequestBuilder.build().forId(KNOWN_TO_EXIST_BROWSE_NODE_ID).newReleases().getRequest();
 		Promise<Response> browseKnownToBeValidNodePromised = RequestHelper.getWSRequestHolder(browseKnownToBeValidNode).get();		
 		
-		System.out.println(browseKnownToBeValidNode.getFullUrl());
+		//System.out.println(browseKnownToBeValidNode.getFullUrl());
 		
 		searchWithEmptyKeywordResponse = searchWithEmptyKeywordPromised.get(5000);
 		searchRequestForTestKeywordResponse = searchRequestForTestKeywordPromised.get(5000);
@@ -256,7 +256,7 @@ public class AmazonApiEndToEndTest {
     @Test
     public void searchRequestForDaVinciLikeKeywordAnswerCheckTotalPages() throws AnswerIsNotValidException {
     	assertThat(searchRequestForDaVinciLikeKeywordAnswer.getTotalPages()).isNotEqualTo(0);
-    	assertThat(searchRequestForDaVinciLikeKeywordAnswer.getTotalPages()*10).isGreaterThan(searchRequestForDaVinciLikeKeywordAnswer.getTotalResults());
+    	assertThat(searchRequestForDaVinciLikeKeywordAnswer.getTotalPages()*10).isGreaterThanOrEqualTo(searchRequestForDaVinciLikeKeywordAnswer.getTotalResults());
     }
     
     @Test
